@@ -1,0 +1,39 @@
+.wrapper {
+    background-color: #ffffff;
+    min-height: 100vh;
+    width: 100%;
+
+    .content {
+        width: 100%;
+        gap: 20px; 
+    }
+
+    .voucher-list {
+        display: grid;
+        width: 100%;
+        height: 700px;
+        overflow-y: auto;
+        grid-template-columns: repeat(2, 1fr); 
+        @extend .customer-scrollbar;
+    }
+
+    .customer-scrollbar {
+        &::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+    }
+}

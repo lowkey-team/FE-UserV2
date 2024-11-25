@@ -1,0 +1,54 @@
+.sortProduct {
+    position: relative;
+    margin: 10px 0 0 80px;
+    width: 100%;
+
+    .dropdownSort {
+        display: inline-block;
+        position: relative; 
+        width: 100%;
+
+        .btnDropdown {
+            background-color: #ffffff;
+            color: #333;
+            font-size: 16px;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+
+            &:hover {
+                background-color: #c7c7c7;
+            }
+
+            .iconDrop{
+                margin-left: 10px;
+            }
+        }
+
+        .dropdownList {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(3, 3, 3, 0.4);
+            margin-top: 5px;
+            list-style: none;
+            width: 100%;
+
+            .dropdownItem {
+                padding: 10px 10px;
+                font-size: 16px;
+                width: 100%;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f1f1f1;
+                }
+            }
+        }
+    }
+}

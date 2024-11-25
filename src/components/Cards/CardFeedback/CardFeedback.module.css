@@ -1,0 +1,51 @@
+/* CardFeedback.module.scss */
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #EEEEEE;
+  border-radius: 8px;
+  position: relative;
+  width: 600px;
+  margin-top: 10px;
+}
+
+.contentFeedback {
+  width: 60%;
+  padding: 10px;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #900000;
+}
+
+.image-start {
+  display: flex;
+  color: #ffcc00;
+}
+
+.content {
+  font-size: 12px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.time {
+  font-size: 10px;
+  color: #a7a7a7;
+  margin-top: 5px;
+}
+
+.orderFeedback {
+  width: 35%;
+  padding: 10px;
+}
+
+.orderFeedback img {
+  width: 100%;
+  max-height: 150px;
+  height: auto;
+  border-radius: 8px;
+}/*# sourceMappingURL=CardFeedback.module.css.map */

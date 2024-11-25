@@ -1,0 +1,183 @@
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.form-login {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+
+    .btn-closeform {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background-color: transparent;
+        font-size: 2.2rem;
+        font-weight: 500;
+        transition: all .1s linear;
+
+        &:hover {
+            color: #ff0000;
+        }
+    }
+
+    .title {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+
+    .form-input {
+        position: relative;
+
+        .input {
+            position: relative;
+            width: 100%;
+            padding: 10px 10px 10px 45px;
+            font-size: 1.6rem;
+            border-radius: 999px;
+            border: 1px solid rgb(124, 124, 124);
+        }
+
+        .icon-input {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.6rem;
+            pointer-events: none;
+            z-index: 1000;
+
+        }
+    }
+
+    .remember {
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 20px;
+        align-items: center;
+
+        input {
+            transform: scale(1.5);
+        }
+
+        span {
+            margin-left: 10px;
+            font-size: 1.4rem;
+        }
+    }
+
+    .form-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .btn-login {
+            padding: 10px;
+            font-size: 1.6rem;
+            border-radius: 10px;
+            background-color: var(--primaryBold);
+            color: #ffff;
+            font-weight: bold;
+            transition: all .1s linear;
+
+            &:hover {
+                background-color: rgb(255, 53, 103);
+            }
+        }
+
+        .btn-forgotPassowrd {
+            background-color: transparent;
+
+            a {
+                font-size: 1.5rem;
+            }
+        }
+
+        .btn-register {
+            background-color: transparent;
+            font-size: 1.5rem;
+
+            button {
+                background-color: transparent;
+                color: var(--TextPrimary);
+                margin-left: 5px;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.more-login {
+    h6 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        font-weight: 100;
+    }
+
+    h6::before,
+    h6::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 25%;
+        height: 0.5px;
+        background-color: #979797;
+        transform: translateY(-50%);
+    }
+
+    h6::before {
+        left: 0;
+    }
+
+    h6::after {
+        right: 0;
+    }
+
+    .btn-loginGoogle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #333;
+        width: 100%;
+        border-radius: 10px;
+
+        img {
+            width: 20px;
+        }
+
+        span {
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+    }
+}

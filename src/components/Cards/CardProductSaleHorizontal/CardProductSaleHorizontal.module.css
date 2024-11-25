@@ -1,0 +1,78 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #FFE2E2;
+  min-height: 100px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.left-card {
+  display: flex;
+  justify-content: center;
+  width: 35%;
+}
+.left-card img {
+  width: 90px;
+  height: 90px;
+}
+
+.right-card {
+  width: 65%;
+  padding: 10px;
+}
+.right-card .sale-percent {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  top: 0;
+  right: 0;
+  background-color: #ff0000;
+}
+.right-card .sale-percent h6 {
+  line-height: 1;
+  margin: 0;
+  color: #fff;
+}
+.right-card .subcategory {
+  font-size: 1.2rem;
+  color: #6a6a6a;
+  font-weight: 300;
+}
+.right-card .productname {
+  font-size: 1.2rem;
+}
+.right-card .price {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+.right-card .price .pricce-sale {
+  line-height: 1;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--TextPrimary);
+}
+.right-card .price .pricce-origin {
+  line-height: 1;
+  margin: 0;
+  margin-left: 10px;
+  font-size: 1.4rem;
+  text-decoration: line-through;
+}
+.right-card .right__card-btn {
+  display: flex;
+  margin-top: 10px;
+  justify-content: end;
+}
+.right-card .right__card-btn button {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: var(--TextPrimary);
+  color: #fff;
+}/*# sourceMappingURL=CardProductSaleHorizontal.module.css.map */

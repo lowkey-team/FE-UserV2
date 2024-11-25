@@ -1,0 +1,56 @@
+.wrapper{
+    font-family: 'Times New Roman', Times, serif;
+    .picture{
+        padding-top: 20px;
+        width: 100%;
+        background-color: rgb(252, 249, 249);
+        .img-feedback{
+            padding: 5px;
+            color: rgb(209, 209, 209);
+        }
+    }
+    
+    .rate{
+        padding-top: 20px;
+        display: flex;
+        width: 100%;
+        gap: 100px;
+    
+        .title-rate{
+            width: 30%;
+    
+            p{
+                font-weight: 700;
+                font-size: 14px;
+            }
+        }
+        .form-star{
+            width: 65%;
+        
+            .custom-star {
+                font-size: 30px;
+              }
+              
+              .rate-feedback {
+                .ant-rate-star {
+                  margin-right: 8px; 
+                }
+              
+                .ant-rate-star:hover .custom-star {
+                  transform: scale(1.2); 
+                  transition: transform 0.2s ease-in-out;
+                  color: #ff8800; 
+                }
+              }
+              
+        }
+    }
+    .btn-send{
+        width: 100%;
+        font-weight: bold;
+        align-items: center;
+        background-color: rgb(170, 170, 221);
+        justify-content: center;
+        border-radius: 20px;
+    }
+}

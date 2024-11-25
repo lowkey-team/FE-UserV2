@@ -1,0 +1,80 @@
+.wrapper {
+  margin: 90px 0;
+  width: 100%;
+}
+
+.slide {
+  width: 100%;
+  background-color: rgb(203, 202, 202);
+}
+.slide .silde-price {
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(203, 202, 202);
+}
+.slide .silde-price .tittle-price {
+  background-color: #333;
+  color: yellow;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+}
+.slide .silde-price .content-price {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.slide .silde-price .content-price .label-price {
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+.slide .silde-price .content-price .btn-filter {
+  background-color: #FFD496;
+  justify-content: center;
+  font-weight: bold;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.label-price {
+  font-size: 12px;
+}
+
+.formSelectPrice input {
+  cursor: pointer;
+}
+.formSelectPrice label {
+  cursor: pointer;
+}
+
+.sidebar {
+  background-color: #fff;
+  padding: 10px;
+  font-size: 1.4rem;
+  border: 1px solid #333;
+}
+.sidebar h4 {
+  margin-bottom: 15px;
+}
+.sidebar div {
+  margin-bottom: 10px;
+}
+.sidebar label {
+  display: flex;
+  align-items: center;
+}
+.sidebar label input {
+  margin-right: 10px;
+}
+
+.formCategory {
+  margin-top: 10px;
+}
+.formCategory input {
+  cursor: pointer;
+}
+.formCategory label {
+  cursor: pointer;
+}/*# sourceMappingURL=Sidebar.module.css.map */

@@ -1,0 +1,47 @@
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 15px;
+  font-size: 1.5rem;
+  color: #856404;
+  font-weight: bold;
+}
+.countdown .time-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.countdown .time-day {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+.countdown .time-day p {
+  margin: 0;
+  line-height: 1;
+  font-size: 2rem;
+}
+.countdown .time-day span {
+  margin: 0 10px 0 10px;
+  font-size: 2rem;
+}
+.countdown .time-segment {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 5px;
+  border-radius: 8px;
+  width: auto;
+}
+.countdown .time-segment p {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.countdown .time-segment span {
+  margin-left: 5px;
+  font-size: 1.4rem;
+  color: #333;
+}/*# sourceMappingURL=CountdownTimer.module.css.map */

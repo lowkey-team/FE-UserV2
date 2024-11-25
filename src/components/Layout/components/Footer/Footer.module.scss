@@ -1,0 +1,156 @@
+.footer-wrapper {
+  width: 100%;
+}
+.footer-introduce{
+  display: flex;
+  background-color: var(--pastelRose);
+  width: 100%;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  .value{
+    width: 280px;
+    .icon{
+      color: black;
+      font-size: 5rem;
+      text-align: center;
+    }
+    p{
+      font-size: 10px;
+    }
+  }
+}
+.footer-register{
+  width: 100%;
+  background-color: rgb(101, 101, 101);
+  display: flex;
+  padding: 20px 50px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  .title-register{
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    h2{
+      font-size: 20px;
+    }
+    p{
+      font-size: 15px;
+    }
+  }
+  .form-register{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    input{
+      width: 70%;
+      height: 30px;
+      font-size: 14px;
+      padding: 5px;
+      border: none;
+      outline: none;
+
+      &:focus{
+        border: none;
+        outline: none;
+      }
+    }
+    .btnRegister{
+      height: 30px;
+      border: none;
+      padding: 0 10px;
+      background-color: #FF5757;
+      color: #fff;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.footer {
+  background-color: var(--primary);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 30px;
+}
+
+.footer-column {
+  gap: 10px;
+  img{
+    width: 300px;
+    height: auto;
+  }
+  .company{
+    color: black;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  p{  
+    font-size: 12px;
+  }
+  hr{
+    color: black;
+    width: 100%;
+  }
+  .icon{
+    color: red;
+    padding-right: 5px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 10px;
+      color: black;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:hover{
+        font-weight: 500;
+      }
+    }
+  }
+
+  p {
+    margin-bottom: 10px;
+    color: black;
+  }
+
+  img {
+    max-width: 100%;
+  }
+  .icon-hotline{
+    color: gray;
+    font-size: 24px;
+    padding-right: 5px;
+  }
+  .hotline{
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  a {
+    display: block;
+    margin-top: 10px;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    padding-bottom: 20px;
+  }
+}

@@ -1,0 +1,53 @@
+.title {
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-bestsell {
+  margin-top: 10px;
+}
+
+.category-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.4rem;
+  height: 40px;
+  background-color: #FFD496;
+  transition: all 0.2s linear;
+}
+.category-list .categoryItem {
+  list-style-type: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.category-list .categoryItem:hover {
+  font-weight: bold;
+  color: #960304;
+}
+
+.form-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+}
+.form-content .banner-sell {
+  width: 20%;
+  height: auto;
+  background-color: #fff;
+}
+.form-content .right-content .product-list {
+  display: grid;
+  width: 79%;
+  height: auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.form-content .right-content .btn-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}/*# sourceMappingURL=FormBestSaleProduct.module.css.map */

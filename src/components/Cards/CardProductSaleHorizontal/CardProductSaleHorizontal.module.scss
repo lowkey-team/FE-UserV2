@@ -1,0 +1,88 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #FFE2E2;
+    min-height: 100px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.left-card {
+    display: flex;
+    justify-content: center;
+    width: 35%;
+
+    img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+.right-card {
+    width: 65%;
+    padding: 10px;
+
+    .sale-percent {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        top: 0;
+        right: 0;
+        background-color: #ff0000;
+
+        h6 {
+            line-height: 1;
+            margin: 0;
+            color: #fff;
+        }
+    }
+
+    .subcategory {
+        font-size: 1.2rem;
+        color: #6a6a6a;
+        font-weight: 300;
+    }
+
+    .productname {
+        font-size: 1.2rem;
+    }
+
+    .price {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+
+        .pricce-sale {
+            line-height: 1;
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--TextPrimary);
+        }
+
+        .pricce-origin {
+            line-height: 1;
+            margin: 0;
+            margin-left: 10px;
+            font-size: 1.4rem;
+            text-decoration: line-through;
+        }
+    }
+
+    .right__card-btn {
+        display: flex;
+        margin-top: 10px;
+        justify-content: end;
+        
+        button {
+            padding: 5px 10px;
+            border-radius: 999px;
+            background-color: var(--TextPrimary);
+            color: #fff;
+        }
+    }
+}

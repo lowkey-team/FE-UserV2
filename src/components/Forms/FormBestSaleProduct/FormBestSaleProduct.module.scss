@@ -1,0 +1,73 @@
+.wrapper {
+    width: 100%;
+    margin: 30px 0;
+}
+
+.title {
+    font-size: 2.0rem;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-bestsell {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.category-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.4rem;
+    height: 40px;
+    background-color: #FFD496;
+    transition: all .2s linear;
+
+    .categoryItem {
+        list-style-type: none;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            font-weight: bold;
+            color: #960304;
+        }
+    }
+}
+
+.form-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+
+    .banner-sell {
+        width: 29%;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .right-content {
+        width: 70%;
+
+        .product-list {
+            display: grid;
+            width: 79%;
+            height: auto;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .btn-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+    }
+}

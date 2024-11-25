@@ -1,0 +1,80 @@
+.wrapper {
+  display: flex;
+  min-height: 150px;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2392156863) 0px 3px 8px;
+  box-sizing: border-box;
+}
+
+.left-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  height: 100%;
+  padding: 0 10px;
+}
+.left-card .bg-name {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #DF85A1;
+  height: 85%;
+  width: 100%;
+  padding: 20px 10px;
+}
+.left-card .bg-name .circle-top,
+.left-card .bg-name .circle-bottom {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.left-card .bg-name .circle-top {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.left-card .bg-name .circle-bottom {
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.left-card .name-voucher {
+  color: #fff;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.right-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  width: 65%;
+  height: 100%;
+  padding: 0 10px;
+  color: #333;
+}
+.right-card .title-voucher {
+  color: #960304;
+}
+.right-card .detail-voucher {
+  font-weight: 400;
+}
+.right-card .btn-copy {
+  background-color: #c35879;
+  color: #fff;
+  padding: 3px 6px;
+  font-size: 1.2rem;
+  border-radius: 999px;
+  transition: all 0.1s linear;
+  margin-bottom: 5px;
+}
+.right-card .btn-copy:hover {
+  background-color: #f7447d;
+}/*# sourceMappingURL=CardVoucherSaved.module.css.map */

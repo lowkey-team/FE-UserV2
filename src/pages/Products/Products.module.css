@@ -1,0 +1,30 @@
+.wrapper {
+  justify-items: center;
+  margin: 140px 0 30px 0;
+}
+
+.line-lane {
+  background-color: #333;
+  height: 1px;
+  width: 88%;
+}
+
+.section-productByCategory {
+  width: 88%;
+}
+
+@media (max-width: 1200px) {
+  .wrapper_product {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .wrapper_product {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .wrapper_product {
+    grid-template-columns: 1fr;
+  }
+}/*# sourceMappingURL=Products.module.css.map */

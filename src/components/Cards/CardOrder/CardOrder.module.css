@@ -1,0 +1,53 @@
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 1px 4px;
+}
+
+.modal-detailOrder {
+  margin-top: -80px;
+}
+
+.order-code {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.4rem;
+  align-items: center;
+  justify-content: center;
+}
+.order-code span {
+  font-weight: 600;
+}
+
+.order-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.order-date span {
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.order-status {
+  font-size: 1.4rem;
+}
+
+.order-action {
+  font-size: 1.4rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: #f4a44e;
+  transition: all 0.1s linear;
+}
+.order-action:hover {
+  background-color: #ff8400;
+  font-weight: 400;
+  color: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}/*# sourceMappingURL=CardOrder.module.css.map */

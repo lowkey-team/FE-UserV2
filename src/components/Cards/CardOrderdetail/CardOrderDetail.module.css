@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 1px 4px;
+  font-family: "Times New Roman", Times, serif;
+}
+.wrapper .product-img img {
+  width: 80px;
+  height: 80px;
+}
+.wrapper .product-info .category-name {
+  color: #747474;
+  font-size: 1.4rem;
+}
+.wrapper .product-info .product-name {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.wrapper .product-info .product-size {
+  font-size: 1.4rem;
+}
+.wrapper .order-quantity {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.wrapper .order-quantity span {
+  font-weight: 500;
+  margin-left: 5px;
+}
+.wrapper .order-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.wrapper .order-price span {
+  font-weight: 500;
+}
+.wrapper .order-status {
+  font-size: 1.4rem;
+}
+.wrapper .btn-feedback {
+  font-family: "Times New Roman", Times, serif;
+  background-color: #edfd08;
+  border-radius: 20px;
+}/*# sourceMappingURL=CardOrderDetail.module.css.map */

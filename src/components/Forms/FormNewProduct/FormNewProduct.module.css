@@ -1,0 +1,50 @@
+.wrapper {
+  background-color: #d5d5d5;
+  overflow-x: hidden;
+  padding: 20px;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary);
+  height: 60px;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.header .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+.header .title p {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+.header .btn-more {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .btn-more p {
+  margin: 0 20px;
+  line-height: 1;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.product-list {
+  width: 100%;
+  padding: 10px;
+}
+.product-list .product-item {
+  padding: 10px 0 10px 30px;
+}/*# sourceMappingURL=FormNewProduct.module.css.map */

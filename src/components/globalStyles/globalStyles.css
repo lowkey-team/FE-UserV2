@@ -1,0 +1,45 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --fontText: "Montserrat", sans-serif;
+  --primary: #F6BCBA;
+  --primaryBold: #FAA8A5;
+  --sizeText: 24px;
+  --sizeTextTitle: 34px;
+  --sizeTextTablet: 20px;
+  --sizeTextTitleTablet: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input[tabindex] {
+  outline: none;
+  border: none;
+}
+
+a[href] {
+  color: var(--text);
+  text-decoration: none;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}/*# sourceMappingURL=globalStyles.css.map */

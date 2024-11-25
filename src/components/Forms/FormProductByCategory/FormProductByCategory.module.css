@@ -1,0 +1,67 @@
+.wrapper {
+  width: 100%;
+  background-color: #ececec;
+  overflow-x: hidden;
+  padding: 20px;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffe9c1;
+  height: 60px;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.header .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffb936;
+  height: 100%;
+  padding: 0 20px;
+}
+.header .title p {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-more {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-more p {
+  margin: 0 20px;
+  line-height: 1;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.category-name {
+  background-color: #ffffff;
+  padding: 10px 5px;
+  margin: 50px 0 20px 0;
+  display: flex;
+  align-items: center;
+}
+.category-name h4 {
+  font-size: 1.6rem;
+}
+.category-name span {
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+.product-list {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}/*# sourceMappingURL=FormProductByCategory.module.css.map */

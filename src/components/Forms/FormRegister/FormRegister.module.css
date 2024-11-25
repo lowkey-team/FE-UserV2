@@ -1,0 +1,117 @@
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-register {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 550px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+.form-content .btn-closeform {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-color: transparent;
+  font-size: 2.2rem;
+  font-weight: 500;
+  transition: all 0.1s linear;
+}
+.form-content .btn-closeform:hover {
+  color: #ff0000;
+}
+.form-content .title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.form-content .form-input {
+  display: flex;
+  flex-direction: column;
+}
+.form-content .form-input label {
+  text-align: start;
+  margin-left: 10px;
+  font-size: 1.4rem;
+}
+.form-content .form-input .input {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 1.6rem;
+}
+.form-content .form-input-contact {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.form-content .form-input-contact .form-input {
+  width: 49%;
+}
+
+.input-styles, .City .Input-Ward, .City .Input-District, .City .Input-City {
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.City {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.City .Input-City {
+  width: 30%;
+}
+.City .Input-District {
+  width: 30%;
+}
+.City .Input-Ward {
+  width: 30%;
+}
+
+.form-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.form-btn .btn-register {
+  padding: 10px;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  background-color: var(--primaryBold);
+  color: white;
+  font-weight: bold;
+  transition: all 0.1s linear;
+}
+.form-btn .btn-register:hover:hover {
+  background-color: rgb(255, 53, 103);
+}
+.form-btn .btn-login {
+  background-color: transparent;
+  font-size: 1.5rem;
+}
+.form-btn .btn-login button {
+  background-color: transparent;
+  color: var(--TextPrimary);
+  margin-left: 5px;
+  font-weight: 600;
+}/*# sourceMappingURL=FormRegister.module.css.map */

@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lobster&display=swap");
+.Wrapper {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+  transition: all 1s linear;
+}
+.Wrapper.scrolled .header__top {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 1s linear, height 1s linear;
+}
+.Wrapper.scrolled .header__bottom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary);
+  z-index: 100;
+}
+.Wrapper.scrolled .sub__header {
+  position: fixed;
+  top: 8.5%;
+  left: 0;
+  right: 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.Wrapper .sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+.Wrapper .sidebar.open {
+  left: 0;
+}
+.Wrapper .sidebar .closeButton {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 2em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.Wrapper .menuButton {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 2em;
+  cursor: pointer;
+  display: none;
+}
+@media (max-width: 1024px) {
+  .Wrapper .menuButton {
+    display: block;
+  }
+}
+
+.header__top {
+  height: 50px;
+  width: auto;
+}
+.header__top img {
+  width: 100%;
+  height: 100%;
+}
+
+.header__bottom {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: var(--primary);
+  padding: 5px 0;
+}
+.header__bottom .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+.header__bottom .logo img {
+  width: 50px;
+  height: 50px;
+}
+.header__bottom .logo h1 {
+  font-family: "Lobster", sans-serif;
+  color: #333;
+}
+.header__bottom .form-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+.header__bottom .form-search .input-container {
+  position: relative;
+  width: 100%;
+}
+.header__bottom .form-search .input-container .input-search {
+  width: 100%;
+  padding: 6px 30px 6px 20px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.header__bottom .form-search .input-container .icon-search {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.6rem;
+}
+.header__bottom .action {
+  display: flex;
+  align-items: center;
+  width: 20%;
+  padding: 10px 0;
+}
+.header__bottom .action .user-name {
+  line-height: 1;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.header__bottom .action .style-btn, .header__bottom .action .btn-user, .header__bottom .action .btn-cart {
+  padding: 5px 10px;
+  font-size: 1.6rem;
+  color: #333;
+  height: auto;
+  background-color: var(--primaryBold);
+  border-radius: 999px;
+  margin-right: 10%;
+}
+.header__bottom .action .style-btn:hover, .header__bottom .action .btn-user:hover, .header__bottom .action .btn-cart:hover {
+  background-color: #FAA8A5;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.header__bottom .action .style-btn span, .header__bottom .action .btn-user span, .header__bottom .action .btn-cart span {
+  margin-left: 5px;
+  font-weight: 600;
+}
+.header__bottom .action .btn-user span,
+.header__bottom .action .btn-user .icon-login {
+  cursor: pointer;
+}
+
+.sub__header {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .Wrapper {
+    flex-direction: row;
+    height: auto;
+  }
+  .navigationBar ul li {
+    display: none;
+  }
+  .loginContainer .icon {
+    display: none;
+  }
+  .Logo img {
+    display: none;
+  }
+  .menuButton {
+    display: block;
+  }
+}/*# sourceMappingURL=Header.module.css.map */
