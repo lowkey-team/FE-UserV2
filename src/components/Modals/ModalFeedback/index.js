@@ -69,7 +69,7 @@ const ModalFeedback = ({ id_invoiceDetail, onClose }) => {
     try {
       setLoading(true);
       const response = await createfeedbacksByInvoicesDetailAPI(formData);
-      if (response.status == 201) {
+      if (response.status === 201) {
         message.success("Gửi phản hồi thành công!");
         setRating(0);
         setContent("");

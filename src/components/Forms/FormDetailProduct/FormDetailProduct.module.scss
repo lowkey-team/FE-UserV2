@@ -17,8 +17,8 @@
       margin-bottom: 20px;
 
       .modal-image {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
       }
     }
 
@@ -109,6 +109,10 @@
 
       .quantity-size {
         margin-top: 10px;
+
+        span{
+          color: #960304;
+        }
       }
 
       .price {

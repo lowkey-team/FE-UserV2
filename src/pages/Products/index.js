@@ -74,9 +74,9 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("banner")}>
+      <div className={cx("banner", 'container')}>
         <img
-          src="https://nguoiduatin.mediacdn.vn/84137818385850368/2024/10/9/xuat-khau-hang-thu-cong-my-nghe-1-17284466847581297629311.jpg"
+          src="https://madebymaries.com/wp-content/uploads/2021/09/wicker-baskets-6526674_1920.jpg"
           alt="Banner"
         />
       </div>

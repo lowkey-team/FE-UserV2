@@ -1,12 +1,17 @@
 import classNames from "classnames/bind";
-
-import styles from './FormProfile.module.scss'
 import { useEffect, useState } from "react";
-import { fetchDistrictsByProvinceId, fetchProvincesAPI, fetchWardsByDistrictId } from "~/apis";
+import Cookies from "js-cookie";
+
+import { fecthFindByIdUserAPI, fetchDistrictsByProvinceId, fetchProvincesAPI, fetchWardsByDistrictId } from "~/apis";
+import styles from './FormProfile.module.scss'
 
 const cx = classNames.bind(styles);
 
 function FormProfile() {
+
+    // State for user data
+    const [user, setUser] = useState({});
+    const [loadingUser, setLoadingUser] = useState(true);
 
     // State for address data
     const [provinces, setProvinces] = useState([]);
@@ -17,6 +22,26 @@ function FormProfile() {
     const [selectedProvince, setSelectedProvince] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [selectedWard, setSelectedWard] = useState("");
+
+    useEffect(() => {
+        const storedUser = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+        if (storedUser && storedUser.id) {
+          fecthFindByIdUserAPI(storedUser.id)
+            .then((data) => {
+              setUser(data);
+              // Set initial address values if available
+              setSelectedProvince(data.province || "");
+              setSelectedDistrict(data.district || "");
+              setSelectedWard(data.ward || "");
+            })
+            .catch((error) => console.error("Error fetching user data:", error))
+            .finally(() => setLoadingUser(false));
+        } else {
+          setLoadingUser(false);
+        }
+      }, []);
+
+
     // Fetch provinces on component mount
     useEffect(() => {
         fetchProvincesAPI().then((data) => {
@@ -60,19 +85,28 @@ function FormProfile() {
             <h2>Thông Tin Cá Nhân</h2>
             <form className={cx("form")}>
                 <label>Họ và tên:</label>
-                <input type="text" />
-
-                <label>Tên đăng nhập:</label>
-                <input type="text" />
+                <input 
+                    type="text" 
+                    value={user.FullName || ""}
+                />
 
                 <label>Số điện thoại:</label>
-                <input type="text" />
+                <input 
+                    type="text" 
+                    value={user.Phone || ""}
+                />
 
                 <label>Email:</label>
-                <input type="email" />
+                <input 
+                    type="text" 
+                    value={user.email || ""}
+                />
 
                 <label>Địa chỉ:</label>
-                <input type="text" />
+                <input 
+                    type="text" 
+                    value={user.address || ""}
+                />
 
                 <div className={cx("address-select")}>
                     <select onChange={handleProvinceChange} value={selectedProvince}>

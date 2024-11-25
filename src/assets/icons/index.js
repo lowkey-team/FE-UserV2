@@ -11,5 +11,7 @@ const icons = {
   precent: require("~/assets/icons/discount.png"),
   orderSearch: require("~/assets/icons/ordersSearch.png"),
   ticket: require("~/assets/icons/ticket.png"),
+  outStock: require("~/assets/icons/out-of-stock.png"),
+  emptyCart: require("~/assets/icons/empty-cart.png"),
 };
 export default icons;

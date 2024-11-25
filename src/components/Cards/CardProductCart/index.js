@@ -158,7 +158,7 @@ function CardProductCart({
       <div className={cx("title-product")}>
         <p className={cx("name-category")}>{SupCategoryName}</p>
         <h2 className={cx("name-product")}>{productName}</h2>
-        <p className={cx("size")}>Loại: {variationName}</p>
+        <p className={cx("size")}>Kích thước: {variationName}</p>
         <p className={cx("price")}>
           {discount === 0 ? (
             <>{formatCurrency(originalPrice)}</>

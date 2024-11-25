@@ -86,9 +86,8 @@ function FormNewProduct() {
           ) : products.length > 0 ? (
             <Slider {...sliderSettings}>
               {products.map((product) => (
-                <div className={cx("product-item")}>
+                <div key={product.product_id} className={cx("product-item")}>
                   <CardProduct
-                    key={product.product_id}
                     id={product.product_id}
                     FirstImage={
                       product.FirstImage

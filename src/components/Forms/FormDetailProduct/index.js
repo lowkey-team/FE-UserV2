@@ -235,7 +235,7 @@ function FormDetailProduct({ productDetails }) {
             {selectedVariant ? (
               <div className={cx("variant-details")}>
                 <p className={cx("quantity-size")}>
-                  Số lượng tồn: {selectedVariant.stock}
+                  Số lượng tồn: <span>{selectedVariant.stock}</span>
                 </p>
 
                 <div className={cx("Quantity")}>

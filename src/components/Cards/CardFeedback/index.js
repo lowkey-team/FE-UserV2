@@ -25,7 +25,7 @@ function CardFeedback({ data }) {
       </div>
 
       <div className={cx("orderFeedback")}>
-        <img src={data.product_image} />
+        <img src={data.product_image} alt="Ảnh đánh giá"/>
       </div>
     </div>
   );

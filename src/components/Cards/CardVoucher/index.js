@@ -5,6 +5,8 @@ import MessageNotification from "../../Message";
 import { addVoucherByUserID } from "~/apis";
 import { useRef } from "react";
 import Cookies from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGift } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
@@ -49,11 +51,13 @@ function CardVoucher({
   };
   return (
     <div className={cx("wrapper")}>
+      <div className={cx("circle-top")}></div>
+      <div className={cx("circle-bottom")}></div>
       <div className={cx("left-card")}>
         <div className={cx("bg-name")}>
-          <h4 className={cx("name-voucher")}>{voucherCode}</h4>
-          <div className={cx("circle-top")}></div>
-          <div className={cx("circle-bottom")}></div>
+          <h4 className={cx("name-voucher")}>
+            <FontAwesomeIcon className={cx('icon-gift')} icon={faGift}/>
+          </h4>
         </div>
       </div>
       <div className={cx("right-card")}>

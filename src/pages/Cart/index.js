@@ -226,7 +226,11 @@ function Cart() {
               />
             ))
           ) : (
-            <p>No products available.</p>
+            <div className={cx('empty-cart')}>
+              <h5>Giỏ hàng của bạn đang trống</h5>
+              <img src={icons.emptyCart} alt="empty-cart" />
+              <button>Mua sắm ngay</button>
+            </div>
           )}
         </div>
 

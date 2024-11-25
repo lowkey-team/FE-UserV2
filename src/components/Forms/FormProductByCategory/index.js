@@ -50,9 +50,6 @@ function FormProductByCategory() {
           <div className={cx("title")}>
             <p>Sản phẩm theo danh mục</p>
           </div>
-          <div className={cx("btn-more")}>
-            <p>Lựa chọn sản phẩm theo danh mục yêu thích của bạn</p>
-          </div>
         </div>
   
         <div className={cx('form-productByCategory')}>
@@ -63,7 +60,9 @@ function FormProductByCategory() {
           Object.keys(groupedProducts).map((category) => (
             <div key={category} className={cx('category-section')}>
               <div className={cx('category-name')}>
-                <h4>Sản phẩm: <span>{category}</span></h4>
+                <div className={cx('title-category')}>
+                  <h4>Sản phẩm: <span>{category}</span></h4>
+                </div>
               </div>
               <div className={cx("product-list")}>
                 {groupedProducts[category].map((product) => (

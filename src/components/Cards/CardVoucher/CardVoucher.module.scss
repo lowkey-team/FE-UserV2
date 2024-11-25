@@ -1,15 +1,46 @@
 .wrapper {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 150px;
     width: 100%;
-    background-color: #fff;
+    background-color: #f0acc1;
     margin-bottom: 10px;
-    box-shadow: #0000003d 0px 3px 8px;
+    // box-shadow: #0000003d 0px 3px 8px;
     box-sizing: border-box;
     height: auto;
     padding: 5px;
+    border: 1px solid #333;
+}
+
+.circle-top,
+.circle-bottom {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    background-color: #ffffff;
+}
+
+.circle-top {
+    top: -1px;
+    left: 36%;
+    transform: translateX(-50%);
+    border: 1px solid #333;
+    border-top: none;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+}
+
+.circle-bottom {
+    bottom: -1px;
+    left: 36%;
+    transform: translateX(-50%);
+    border: 1px solid;
+    border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .left-card {
@@ -21,35 +52,17 @@
     padding: 0 10px;
 
     .bg-name {
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #DF85A1;
         height: 85%;
         width: 100%;
         padding: 20px 10px;
 
-        .circle-top,
-        .circle-bottom {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-            border-radius: 50%;
+        .icon-gift {
+            font-size: 2.5rem;
         }
 
-        .circle-top {
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .circle-bottom {
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
     }
 
     .name-voucher {
@@ -63,6 +76,9 @@
     width: 65%;
     height: 100%;
     padding: 0 10px;
+    border-left: 1px dashed #333;
+    height: 100%;
+
 
     .title-voucher {
         color: #960304;
@@ -73,17 +89,18 @@
     }
 
     .btn-copy {
-        background-color: #c35879;
-        color: #fff;
+        background-color: #ffffff;
+        color: #f7447d;
         padding: 3px 6px;
         font-size: 1.2rem;
         border-radius: 999px;
         transition: all .1s linear;
         margin-bottom: 5px;
         width: 100%;
+        font-weight: 500;
 
         &:hover {
-            background-color: #f7447d;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
     }
 

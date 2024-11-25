@@ -4,6 +4,8 @@
     overflow-x: hidden;
     padding: 20px;
     height: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .header {
@@ -14,7 +16,7 @@
     align-items: center;
     padding: 5px;
     width: 100%;
-    margin-bottom: 10px;
+    border-radius: 999px;
 
     .title {
         display: flex;
@@ -23,6 +25,7 @@
         background-color: #ffb936;
         height: 100%;
         padding: 0 20px;
+        border-radius: 999px;
 
         p {
             color: #fff;
@@ -34,26 +37,18 @@
 
 }
 
-.btn-more {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    p {
-        margin: 0 20px;
-        line-height: 1;
-        font-size: 1.6rem;
-        font-style: italic;
-        font-weight: 700;
-    }
-}
-
 .category-name {
     background-color: #ffffff;
     padding: 10px 5px;
     margin: 50px 0 20px 0;
     display: flex;
     align-items: center;
+
+    .title-category{
+        background-color: #e4e4e4;
+        padding: 5px 20px;
+        border-radius: 999px;
+    }
 
     h4 {
         font-size: 1.6rem;

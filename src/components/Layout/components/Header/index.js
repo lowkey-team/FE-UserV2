@@ -32,6 +32,7 @@ function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
@@ -106,6 +107,18 @@ function Header() {
     </Menu>
   );
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+
   return (
     <header className={cx("Wrapper", { scrolled: isScrolled })}>
       {isMobile ? (
@@ -177,11 +190,12 @@ function Header() {
               <img src={images.logo} alt="logo" />
             </Link>
 
-              <form className={cx('form-search')}>
+              <form className={cx('form-search')} onSubmit={handleSearchSubmit}>
                     <div className={cx('input-container')}>
                         <input
                             className={cx('input-search')}
                             placeholder="tìm kiếm sản phẩm..."
+                            onChange={handleSearchChange}
                         />
                         <FontAwesomeIcon className={cx('icon-search')} icon={faSearch} />
                     </div>

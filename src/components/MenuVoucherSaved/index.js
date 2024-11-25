@@ -31,6 +31,7 @@ function MenuVoucherSaved({ isVisible, onClose, onVoucherSelect }) {
     };
     fetchVouchers();
   }, []);
+  
   return (
     <div className={cx("menu-voucher", { "menu-visible": isVisible })}>
       <div className={cx("form-menu")}>
