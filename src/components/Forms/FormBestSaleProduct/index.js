@@ -51,7 +51,7 @@ function FormBestSaleProduct() {
       }, []);
 
     return ( 
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', 'container')}>
             <div className={cx('title')}>Sản phẩm bán chạy</div>
 
             <div className={cx('form-bestsell')}>
@@ -68,16 +68,16 @@ function FormBestSaleProduct() {
                 </div>
 
                 <div className={cx('form-content')}>
-                    <div className={cx('banner-sell')}>
+                    {/* <div className={cx('banner-sell')}>
                         <img src={images.logo2} alt=""/>
-                    </div>
+                    </div> */}
 
                     <div className={cx('right-content')}>
                         <div className={cx('product-list')}>
                             {loading ? (
                                 <p>Loading...</p>
                             ) : products.length > 0 ? (
-                                products.slice(0, 3).map((product) => (
+                                products.slice(0, 5).map((product) => (
                                     <CardProduct
                                     key={product.ProductID}
                                     id={product.ProductID}

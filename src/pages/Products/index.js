@@ -16,31 +16,31 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch product data
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const data = await fecthPorductAPI();
+    // Fetch product data
+    useEffect(() => {
+      const fetchProducts = async () => {
+        setLoading(true);
+        try {
+          const data = await fecthPorductAPI();
 
-        const updatedProducts = data.map((product) => ({
-          ...product,
-          minPrice: parseFloat(product.min_price),
-          maxPrice: parseFloat(product.max_price),
-          discount: product.discount || 0,
-        }));
+          const updatedProducts = data.map((product) => ({
+            ...product,
+            minPrice: parseFloat(product.min_price),
+            maxPrice: parseFloat(product.max_price),
+            discount: product.discount || 0,
+          }));
 
-        setProducts(updatedProducts);
-        setFilteredProducts(updatedProducts); // Khởi tạo danh sách lọc
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+          setProducts(updatedProducts);
+          setFilteredProducts(updatedProducts); // Khởi tạo danh sách lọc
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchProducts();
-  }, []);
+      fetchProducts();
+    }, []);
 
   // Filter products based on selectedCategories and selectedPrice
   useEffect(() => {

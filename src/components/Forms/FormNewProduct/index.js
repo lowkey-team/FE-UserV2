@@ -45,7 +45,7 @@ function FormNewProduct() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     adaptiveHeight: true,
     responsive: [
@@ -74,7 +74,7 @@ function FormNewProduct() {
 
   return (
     <>
-      <div className={cx("wrapper")}>
+      <div className={cx("wrapper", 'container')}>
         <div className={cx("header")}>
           <div className={cx("title")}>
             <p>Sản phẩm mới</p>

@@ -1,28 +1,27 @@
 import classNames from "classnames/bind";
-import styles from "./FormProductSale.module.scss";
-import CountdownTimer from "../../CountdownTimer";
-import CardProduct from "../../Cards/CardProduct";
+
+import style from './ProductAll.module.scss';
 import { useEffect, useState } from "react";
-import { fecthPorductAPI } from "~/apis";
-import Button from "../../Button";
+import { fecthAllPorductAPI } from "~/apis";
+import CardProduct from "~/components/Cards/CardProduct";
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(style);
 
-function FormProductSale() {
-  const [products, setProducts] = useState([]);
+function ProductAll() {
+    const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const data = await fecthPorductAPI();
+        const data = await fecthAllPorductAPI();
 
         const updatedProducts = data.map((product) => ({
           ...product,
-          ReducedPrice: parseInt(product.FinalPrice),
-          originalPrice: parseInt(product.VariationPrice),
-          discount: product.MaxDiscount || 0,
+          ReducedPrice: parseInt(product.final_price),
+          originalPrice: parseInt(product.original_price),
+          discount: product.discount_percentage || 0,
         }));
 
         setProducts(updatedProducts);
@@ -35,19 +34,9 @@ function FormProductSale() {
 
     fetchProducts();
   }, []);
-
-  return (
-    <div className={cx("wrapper", 'container')}>
-      <div className={cx("header")}>
-        <div className={cx("title")}>
-          <p>Sản phẩm khuyến mãi</p>
-        </div>
-        <div className={cx("countdown")}>
-          <CountdownTimer initialTime={99999} />
-        </div>
-      </div>
-
-      <div className={cx("product-list")}>
+    return ( 
+        <div className={cx('wrapper')}>
+               <div className={cx("product-list")}>
         {loading ? (
           <p>Loading...</p>
         ) : products.length > 0 ? (
@@ -63,19 +52,15 @@ function FormProductSale() {
               originalPrice={product.originalPrice}
               reducedPrice={product.ReducedPrice}
               discount={product.discount}
-              isNew={product.isNew} 
+              isNew={product.isNew}
             />
           ))
         ) : (
           <p>No products available.</p>
         )}
       </div>
-
-      <div className={cx("btn-more")}>
-        <Button outline>Xem tất cả</Button>
-      </div>
-    </div>
-  );
+        </div>
+     );
 }
 
-export default FormProductSale;
+export default ProductAll;

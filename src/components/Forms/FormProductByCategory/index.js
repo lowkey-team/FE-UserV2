@@ -45,7 +45,7 @@ function FormProductByCategory() {
   }, {});
 
     return ( 
-        <div className={cx("wrapper")}>
+        <div className={cx("wrapper", 'container')}>
         <div className={cx("header")}>
           <div className={cx("title")}>
             <p>Sản phẩm theo danh mục</p>

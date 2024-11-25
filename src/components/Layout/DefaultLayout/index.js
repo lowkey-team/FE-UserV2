@@ -1,13 +1,12 @@
 import classNames from "classnames/bind";
-import SubHeader from "../components/SubHeader";
 import Header from "../components/Header";
 import Sidebar from "./Sidebar";
 
 import styles from './DefaultLayout.module.scss'
-import Products from "~/pages/Products";
 import { useState } from "react";
 import SortProduct from "~/components/SortProduct";
 import Footer from "../components/Footer";
+import ProductAll from "~/pages/ProductAll";
 const cx = classNames.bind(styles);
 
 
@@ -30,7 +29,7 @@ function DefaultLayout() {
                 </div>
                 <div className={cx('col-md-10')}>
                     <div className={cx('content')}>
-                        <Products
+                        <ProductAll
                             products={products} 
                             selectedCategories={selectedCategories}
                             setProducts={setProducts}

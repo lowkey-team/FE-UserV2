@@ -42,24 +42,24 @@
     margin-top: 10px;
     width: 100%;
 
-    .banner-sell {
-        width: 29%;
-        height: auto;
+    // .banner-sell {
+    //     width: 29%;
+    //     height: auto;
 
-        img {
-            width: 100%;
-            height: auto;
-        }
-    }
+    //     img {
+    //         width: 100%;
+    //         height: auto;
+    //     }
+    // }
 
     .right-content {
-        width: 70%;
+        width: 100%;
 
         .product-list {
             display: grid;
-            width: 79%;
+            width: 100%;
             height: auto;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 16px;
         }
 

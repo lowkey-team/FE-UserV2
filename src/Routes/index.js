@@ -1,6 +1,7 @@
 import { HeaderOnly } from "~/components/Layout";
 import Cart from "~/pages/Cart";
 import Home from "~/pages/Home";
+import ProductAll from "~/pages/ProductAll";
 import ProductBySupCategory from "~/pages/ProductBySupCategory";
 import ProductDetails from "~/pages/ProductDetails";
 import Products from "~/pages/Products";
@@ -9,7 +10,8 @@ import Profile from "~/pages/Profile";
 //Public Routes
 const publicRoutes = [
   { path: "/", component: Home, layout: HeaderOnly },
-  { path: "/product", component: Products },
+  { path: "/product", component: Products, layout: HeaderOnly },
+  { path: "/productall", component: ProductAll },
   { path: "/cart", component: Cart, layout: HeaderOnly },
   { path: "/profile", component: Profile, layout: HeaderOnly },
   { path: "/productdetail/:id", component: ProductDetails, layout: HeaderOnly },

@@ -78,7 +78,7 @@ function SubHeader() {
           rel="noopener noreferrer"
           href="/product"
         >
-          SẢN PHẨM
+          TRANG CHỦ
         </a>
       ),
     },
@@ -88,9 +88,9 @@ function SubHeader() {
         <a
           className={cx('Menu-link')}
           rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
+          href="/productall"
         >
-          LIÊN HỆ
+          SẢN PHẨM
         </a>
       ),
     },
