@@ -16,6 +16,7 @@ import {
 import Cookies from "js-cookie";
 import { Input } from "antd";
 import { formatDateToMySQL } from "~/utils/format";
+import { deleteCartByIdAPI } from "~/apis/cart";
 
 const cx = classNames.bind(styles);
 const { TextArea } = Input;
@@ -44,11 +45,20 @@ function ModalPayment({
   const [selectedDistrictName, setSelectedDistrictName] = useState("");
   const [selectedWardName, setSelectedWardName] = useState("");
 
+  const [selectdCart, setSelectedCart] = useState("");
+
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
 
   useEffect(() => {
+    console.log("data id cart:", selectedProducts);
+    const cartIdsObject = {
+      cartIds: selectedProducts.map((cart) => cart.id),
+    };
+    console.log("data id cart:", cartIdsObject);
+    setSelectedCart(cartIdsObject);
+
     fetchProvincesAPI()
       .then((data) => setProvinces(data))
       .catch((error) => console.error("Error fetching provinces:", error));
@@ -130,12 +140,15 @@ function ModalPayment({
 
   const handleCODPayment = async () => {
     const orderData = getOrderData(paymentMethod, "Chưa thanh toán");
+    console.log("orderData:", orderData);
     try {
       await addInvoiceAPI(orderData);
       alert("Đơn hàng đã được hoàn tất!");
     } catch (error) {
       alert("Có lỗi xảy ra khi hoàn tất đơn hàng. Vui lòng thử lại.");
     }
+    console.log("data delete", selectdCart);
+    await deleteCartByIdAPI(selectdCart);
   };
 
   const handleMomoPayment = async () => {
@@ -202,7 +215,7 @@ function ModalPayment({
       voucherCode: voucherCode,
       paymentStatus: paymentStatus,
       paymentMethod: paymentMethod,
-      orderStatus: "Completed",
+      orderStatus: "Đang xử lý",
       note: note,
       invoiceDate: formatDateToMySQL(new Date()),
       receivedDate: formatDateToMySQL(

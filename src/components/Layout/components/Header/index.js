@@ -21,6 +21,8 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 import SubHeader from "../SubHeader";
+import { GetTotalCartByUserIdAPI } from "~/apis/cart";
+import { useCart } from "~/contexts/CartContext";
 
 const cx = classNames.bind(styles);
 
@@ -33,11 +35,10 @@ function Header() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const { cartCount, updateCartCount } = useCart();
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
-
 
   useEffect(() => {
     setUser(storedUser);
@@ -46,6 +47,25 @@ function Header() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [user]);
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      if (storedUser) {
+        try {
+          const response = await GetTotalCartByUserIdAPI(storedUser.id);
+          console.log("Cart count:", response);
+          updateCartCount(response || 0);
+        } catch (error) {
+          console.error("Error fetching cart count:", error);
+          updateCartCount(0);
+        }
+      } else {
+        updateCartCount(0);
+      }
+    };
+
+    fetchCartCount();
+  }, [storedUser, updateCartCount]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -78,14 +98,14 @@ function Header() {
   const handleMenuClick = (e) => {
     switch (e.key) {
       case "account":
-        navigate("/profile"); 
+        navigate("/profile");
         break;
       case "settings":
         navigate("/settings");
         break;
       case "logout":
-        Cookies.remove("user"); 
-        setUser(null); 
+        Cookies.remove("user");
+        setUser(null);
         navigate("/");
         break;
       default:
@@ -118,7 +138,6 @@ function Header() {
     }
   };
 
-
   return (
     <header className={cx("Wrapper", { scrolled: isScrolled })}>
       {isMobile ? (
@@ -138,7 +157,7 @@ function Header() {
                   onClick={closeSidebar}
                   className={cx({ active: location.pathname === "/" })}
                 >
-                  <p className={cx('link-item')}>TRANG CHỦ</p>
+                  <p className={cx("link-item")}>TRANG CHỦ</p>
                 </Link>
               </li>
               <li>
@@ -182,55 +201,63 @@ function Header() {
         </>
       ) : (
         <div>
-          <div className={cx('header__top')}>
-              <img src="https://theme.hstatic.net/200000551679/1001282356/14/top_banner.jpg?v=516" alt="banner"/>
+          <div className={cx("header__top")}>
+            <img
+              src="https://theme.hstatic.net/200000551679/1001282356/14/top_banner.jpg?v=516"
+              alt="banner"
+            />
           </div>
-          <div className={cx('header__bottom')}>
-            <Link to="/"  className={cx('logo')}>
+          <div className={cx("header__bottom")}>
+            <Link to="/" className={cx("logo")}>
               <img src={images.logo} alt="logo" />
             </Link>
 
-              <form className={cx('form-search')} onSubmit={handleSearchSubmit}>
-                    <div className={cx('input-container')}>
-                        <input
-                            className={cx('input-search')}
-                            placeholder="tìm kiếm sản phẩm..."
-                            onChange={handleSearchChange}
-                        />
-                        <FontAwesomeIcon className={cx('icon-search')} icon={faSearch} />
-                    </div>
-                </form>
+            <form className={cx("form-search")} onSubmit={handleSearchSubmit}>
+              <div className={cx("input-container")}>
+                <input
+                  className={cx("input-search")}
+                  placeholder="tìm kiếm sản phẩm..."
+                  onChange={handleSearchChange}
+                />
+                <FontAwesomeIcon
+                  className={cx("icon-search")}
+                  icon={faSearch}
+                />
+              </div>
+            </form>
 
-              <div className={cx("action")}>
-                <div className={cx("btn-cart")}>
-                  <Link to="/cart">
-                    <FontAwesomeIcon
-                      className={cx("icon-cart")}
-                      icon={faCartShopping}
-                    />
-                    <span>Giỏ hàng</span>
-                  </Link>
+            <div className={cx("action")}>
+              <div className={cx("btn-cart")}>
+                <Link to="/cart">
+                  <FontAwesomeIcon
+                    className={cx("icon-cart")}
+                    icon={faCartShopping}
+                  />
+                  <span>Giỏ hàng ({cartCount})</span>
+                </Link>
+              </div>
+              {user ? (
+                <>
+                  <Dropdown overlay={menu} trigger={["click"]}>
+                    <p
+                      className={cx("user-name")}
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      {user.FullName}
+                    </p>
+                  </Dropdown>
+                </>
+              ) : (
+                <div className={cx("btn-user")} onClick={handleLoginClick}>
+                  <FontAwesomeIcon className={cx("icon-login")} icon={faUser} />
+                  <span>Đăng nhập</span>
                 </div>
-                  {user ? (
-                    <>
-                      <Dropdown overlay={menu} trigger={["click"]}>
-                        <p className={cx('user-name')} onClick={(e) => e.preventDefault()}>{user.FullName}</p>
-                      </Dropdown>
-                    </>
-                  ) : (
-                    <div className={cx('btn-user')}  onClick={handleLoginClick}>
-                      <FontAwesomeIcon
-                        className={cx("icon-login")}
-                        icon={faUser}
-                      />
-                      <span>Đăng nhập</span>
-                    </div>
-                  )}
-                </div>
-                {showLoginForm && <FormLogin onClose={handCloseLoginForm} />}
+              )}
+            </div>
+            {showLoginForm && <FormLogin onClose={handCloseLoginForm} />}
           </div>
-          <div className={cx('sub__header')}>
-              <SubHeader/>
+          <div className={cx("sub__header")}>
+            <SubHeader />
           </div>
         </div>
       )}

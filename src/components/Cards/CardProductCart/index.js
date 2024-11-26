@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import MessageNotification from "../../Message";
 import { deleteCartByIdAPI, updateProductQuantityAPI } from "~/apis";
+import { useCart } from "~/contexts/CartContext";
+import { GetTotalCartByUserIdAPI } from "~/apis/cart";
+import Cookies from "js-cookie";
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +37,12 @@ function CardProductCart({
   const debounceTimeoutRef = useRef(null);
 
   const calculateTotalPrice = () => reducedPrice * currentQuantity;
+
+  const { updateCartCount } = useCart();
+
+  const storedUser = Cookies.get("user")
+    ? JSON.parse(Cookies.get("user"))
+    : null;
 
   const handleSelect = (e) => {
     console.log("Props truyền vào:", {
@@ -75,6 +84,8 @@ function CardProductCart({
       await deleteCartByIdAPI(id_cart);
       setIsVisible(false);
       messageRef.current.showSuccess("Sản phẩm đã được xóa khỏi giỏ hàng");
+      const updatedCartCount = await GetTotalCartByUserIdAPI(storedUser.id);
+      updateCartCount(updatedCartCount || 0);
     } catch (error) {
       messageRef.current.showError("Lỗi khi xóa sản phẩm khỏi giỏ hàng");
     }
