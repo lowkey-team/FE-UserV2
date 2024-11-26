@@ -106,7 +106,7 @@ function FormDetailProduct({ productDetails }) {
 
     const dataToAdd = {
       userId: parseInt(storedUser.id, 10),
-      productVariationId: parseInt(selectedVariant.variation_id, 10),
+      productVariationId: selectedVariant.variation_id,
       quantity: parsedQuantity,
     };
 
