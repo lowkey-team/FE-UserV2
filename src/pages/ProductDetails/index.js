@@ -50,18 +50,7 @@ function ProductDetails() {
     fetchVouchers();
   }, []);
 
-  const fullDescription = `
-        Sản phẩm mỹ nghệ của chúng tôi là một tác phẩm nghệ thuật được chế tác tỉ mỉ và tinh xảo, mang đậm giá trị văn hóa và nghệ thuật truyền thống. Mỗi món đồ đều được làm thủ công bởi những người thợ lành nghề, với kỹ thuật truyền thống qua nhiều thế hệ, kết hợp cùng sự sáng tạo và tinh thần tỉ mỉ trong từng chi tiết.
-
-        Chất liệu sản phẩm được chọn lọc kỹ càng, bao gồm gỗ tự nhiên, đá quý, sứ, đồng và những vật liệu cao cấp khác, mang đến sự bền bỉ và vẻ đẹp vượt thời gian. Những đường nét chạm khắc, họa tiết trang trí trên sản phẩm không chỉ thể hiện sự khéo léo mà còn chứa đựng những câu chuyện lịch sử và ý nghĩa sâu sắc, phản ánh đậm nét văn hóa dân gian và những giá trị truyền thống quý báu.
-
-        Các sản phẩm mỹ nghệ của chúng tôi không chỉ là những món đồ trang trí nội thất, mà còn là những tác phẩm nghệ thuật có giá trị sưu tầm cao. Chúng phù hợp với mọi không gian, từ phòng khách sang trọng, phòng làm việc thanh lịch cho đến các không gian văn hóa, bảo tàng hoặc các bộ sưu tập cá nhân.
-
-        Sản phẩm mỹ nghệ của chúng tôi cũng là món quà tặng đầy ý nghĩa dành cho những dịp đặc biệt như lễ tết, kỷ niệm, hoặc những buổi gặp gỡ quan trọng. Mỗi món quà mang trong mình thông điệp tôn vinh vẻ đẹp thủ công và tình yêu đối với nghệ thuật, chắc chắn sẽ tạo nên ấn tượng sâu sắc đối với người nhận.
-
-        Hãy đến với chúng tôi để khám phá những sản phẩm mỹ nghệ độc đáo, đậm chất nghệ thuật và giá trị văn hóa, mang lại sự sang trọng và tinh tế cho không gian sống của bạn.
-  `;
-
+  const fullDescription = productDetails?.description || "";
   const previewLength = 200;
 
   const toggleDescription = () => {
