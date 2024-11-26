@@ -42,31 +42,7 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
       fetchProducts();
     }, []);
 
-  // Filter products based on selectedCategories and selectedPrice
-  useEffect(() => {
-    let tempProducts = [...products];
-
-    // Filter by categories if selected
-    if (selectedCategories.length > 0) {
-      tempProducts = tempProducts.filter((product) =>
-        selectedCategories.includes(product.category_name)
-      );
-    }
-
-    // Filter by price if selected
-    if (selectedPrice) {
-      const [minPrice, maxPrice] = selectedPrice
-        .split(" - ")
-        .map((price) => parseInt(price.replace("Từ", "").replace("đ", "").trim()));
-
-      tempProducts = tempProducts.filter(
-        (product) =>
-          product.minPrice >= minPrice && product.maxPrice <= maxPrice
-      );
-    }
-
-    setFilteredProducts(tempProducts); // Cập nhật danh sách đã lọc
-  }, [selectedCategories, selectedPrice, products]);
+  
 
   if (loading) {
     return <div>Loading...</div>;

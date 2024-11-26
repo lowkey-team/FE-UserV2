@@ -1,10 +1,35 @@
 .subHeader {
   display: flex;
+  align-items: center;
   width: 100%;
   background-color: #FFE9E8;
 }
 
+.subcategoryMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+
+  .sub-item {
+    padding: 8px 16px;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
 .Menu-link {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
   width: 100%;
   padding: 5px 10px;
 }
@@ -16,85 +41,83 @@
   width: 15%;
 }
 
-.dropdown {
-  margin-top: 100px;
-}
-
-// category
-.productCatalog {
-  width: 85%;
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-}
-
-.categoryList {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0;
-  width: 100%;
-}
-
-.categoryItem {
-  position: relative;
-  display: block;
-  list-style-type: none;
-  margin-left: 20px;
-  font-size: 1.6rem;
-  font-weight: 500;
-  width: auto;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 6px;
-  color: #333;
-  z-index: 5;
-
-  &:hover {
-    color: #960304;
-    transform: scale(1.1);
-    // background-color: var(--primary);npm
-    border-radius: 999px;
-    font-weight: 600;
-  }
-
-  .categoryTypeList {
-    position: absolute;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    //   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    max-height: none;
-    width: auto;
-    gap: 10px;
-    box-sizing: border-box;
-    top: 103%;
-    left: 0;
-    padding: 5px 0;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(3, 3, 3, 0.4);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-
-    .categoryTypeItem {
-      padding: 5px 10px;
-      color: #333;
-      cursor: pointer;
-      font-size: 1.4rem;
-      font-weight: 0;
-      min-width: 150px;
-      width: auto;
-
-      &:hover {
-        background-color: #eee;
-      }
+.custom-cascader {
+  .ant-cascader-dropdown {
+    .ant-cascader-menu {
+      height: 500px !important;  // Ghi đè chiều cao menu
     }
   }
+}
 
-  //     /* Đặt chiều cao tối đa cho mỗi cột */
-  // .categoryTypeList {
-  //     /* Nếu có quá 4 loại thì tạo cột mới */
-  //     display: grid;
-  //     grid-template-columns: repeat(4, 1fr); /* Tạo 4 cột */
-  // }
+.custom-popup {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+
+  .ant-cascader-menu {
+    height: 500px !important;  // Điều chỉnh chiều cao của menu
+  }
+
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+.menu-header {
+  width: 85%;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  align-items: center;
+  margin-right: 20%;
+  padding: 10px;
+  height: 100%;
+
+}
+
+.menu-item {
+  margin: 0 20px;
+  font-size: 16px;
+
+  a {
+    position: relative;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background-color: #333;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+.menu-item:hover {
+  border-radius: 4px;
 }

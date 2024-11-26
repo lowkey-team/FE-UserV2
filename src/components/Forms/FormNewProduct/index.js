@@ -77,7 +77,7 @@ function FormNewProduct() {
       <div className={cx("wrapper", 'container')}>
         <div className={cx("header")}>
           <div className={cx("title")}>
-            <p>Sản phẩm mới</p>
+            <p>Top 10 Sản phẩm mới nhất</p>
           </div>
         </div>
         <div className={cx("product-list")}>
@@ -85,7 +85,7 @@ function FormNewProduct() {
             <p>Loading...</p>
           ) : products.length > 0 ? (
             <Slider {...sliderSettings}>
-              {products.map((product) => (
+              {products.slice(0, 10).map((product) => (
                 <div key={product.product_id} className={cx("product-item")}>
                   <CardProduct
                     id={product.product_id}
