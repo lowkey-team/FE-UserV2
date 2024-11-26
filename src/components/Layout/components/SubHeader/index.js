@@ -3,7 +3,6 @@ import styles from "./SubHeader.module.scss";
 import { useEffect, useState } from "react";
 import { Cascader } from "antd";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu } from "antd";
 import { fetchCategoryAPI } from "~/apis";
 
 const cx = classNames.bind(styles);
