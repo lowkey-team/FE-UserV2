@@ -100,7 +100,7 @@ function SubHeader() {
         <a
           className={cx('Menu-link')}
           rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
+          href="/news"
         >
           TIN TỨC
         </a>
