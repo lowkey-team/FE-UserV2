@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { message } from "antd";
 
 import styles from "./FormRegister.module.scss";
 import {
@@ -80,10 +81,10 @@ function FormRegister({ onClose }) {
 
     try {
       const response = await RegisterAPI(formData);
-      console.log("Đăng ký thành công:", response);
+      message.success("Đăng ký thành công!");
       onClose();
     } catch (error) {
-      console.error("Đăng ký thất bại:", error);
+      // console.error("Đăng ký thất bại:", error);
       setErrorMessage("Đăng ký thất bại. Vui lòng thử lại!");
     }
   };

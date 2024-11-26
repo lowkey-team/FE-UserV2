@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { fecthPorductAPI } from "~/apis";
+import { fecthPorductAPI, fetchCategoryAPI } from "~/apis";
 import classNames from "classnames/bind";
+import { Menu } from "antd";
 
 import style from "./Products.module.scss";
 import FormProductSale from "~/components/Forms/FormProductSale";
@@ -15,6 +16,44 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategoryAPI();
+        setCategories(data);
+  
+        // Chuyển đổi dữ liệu categories sang cấu trúc menu items
+        const items = createMenuItems(data);
+        setMenuItems(items);
+      } catch (error) {
+        console.log("Error fetching categories", error);
+      }
+    };
+    loadCategories();
+  }, []);
+  
+
+  const createMenuItems = (categories) => {
+    return categories.map((category) => ({
+      key: category.category_id.toString(),
+      label: category.category_name,
+      children: category.subcategories.map((sub) => ({
+        key: sub.id,
+        label: sub.SupCategoryName,
+      })),
+    }));
+  };
+
+  const onClick = ({ keyPath }) => {
+    // Nếu keyPath có 2 phần tử, nghĩa là chọn subcategory
+    if (keyPath.length === 2) {
+      const subCategoryId = keyPath[0]; // keyPath[0] là id của danh mục con
+      window.location.href = `/productBySupCategory/${subCategoryId}`;
+    }
+  };
 
     // Fetch product data
     useEffect(() => {
@@ -49,31 +88,53 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
   }
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("banner", 'container')}>
-        <img
-          src="https://madebymaries.com/wp-content/uploads/2021/09/wicker-baskets-6526674_1920.jpg"
-          alt="Banner"
-        />
+    <div className={cx("wrapper", 'container')}>
+      <div className={cx('row')}>
+
+        <div className={cx('col-md-2')}>
+          <div className={cx('form-category')}>
+            <div className={cx('title-category')}>Danh mục sản phẩm</div>
+            <Menu
+              onClick={onClick}
+              style={{
+                width: "100%",
+                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", 
+              }}
+              mode="vertical"
+              items={menuItems}
+              className={cx('Menu-category')}
+            />
+          </div>
+        </div>
+
+        <div className={cx('col-md-10')}>
+          <div className={cx("banner")}>
+            <img
+              src="https://madebymaries.com/wp-content/uploads/2021/09/wicker-baskets-6526674_1920.jpg"
+              alt="Banner"
+            />
+          </div>
+    
+    
+          <section className={cx("section-saleproduct")}>
+            <FormProductSale products={filteredProducts}/>
+          </section>
+    
+          <div className={cx("line-lane")}></div>
+          <FormNewProduct products={filteredProducts}/>
+          <div className={cx("line-lane")}></div>
+          
+          <section className={cx("section-bestsale")}>
+            <FormBestSaleProduct products={filteredProducts}/>
+          </section>
+          <div className={cx("line-lane")}></div>
+    
+          <section className={cx("section-productByCategory")}>
+            <FormProductByCategory products={filteredProducts}/>
+          </section>
+        </div>
+
       </div>
-
-
-      <section className={cx("section-saleproduct")}>
-        <FormProductSale products={filteredProducts}/>
-      </section>
-
-      <div className={cx("line-lane")}></div>
-      <FormNewProduct products={filteredProducts}/>
-      <div className={cx("line-lane")}></div>
-      
-      <section className={cx("section-bestsale")}>
-        <FormBestSaleProduct products={filteredProducts}/>
-      </section>
-      <div className={cx("line-lane")}></div>
-
-      <section className={cx("section-productByCategory")}>
-        <FormProductByCategory products={filteredProducts}/>
-      </section>
 
       <BackTop/>
     </div>

@@ -24,48 +24,49 @@ function FormOrderManagement() {
     setData(dataInvoice);
   };
 
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("order-header")}>
         <button
           className={cx({ active: activeButton === "chothanhtoan" })}
-          onClick={() => handleButtonClick("Chờ thanh toán")}
+          onClick={() => handleButtonClick("chothanhtoan")}
         >
           Chờ thanh toán
         </button>
         <button
           className={cx({ active: activeButton === "choxacnhan" })}
-          onClick={() => handleButtonClick("Chờ xác nhận")}
+          onClick={() => handleButtonClick("choxacnhan")}
         >
           Chờ xác nhận
         </button>
         <button
           className={cx({ active: activeButton === "cholayhang" })}
-          onClick={() => handleButtonClick("Chờ lấy hàng")}
+          onClick={() => handleButtonClick("cholayhang")}
         >
           Chờ lấy hàng
         </button>
         <button
           className={cx({ active: activeButton === "chogiaohang" })}
-          onClick={() => handleButtonClick("Chờ giao hàng")}
+          onClick={() => handleButtonClick("chogiaohang")}
         >
           Chờ giao hàng
         </button>
         <button
           className={cx({ active: activeButton === "trahang" })}
-          onClick={() => handleButtonClick("Trả hàng")}
+          onClick={() => handleButtonClick("trahang")}
         >
           Trả hàng
         </button>
         <button
           className={cx({ active: activeButton === "duocgiao" })}
-          onClick={() => handleButtonClick("Được giao")}
+          onClick={() => handleButtonClick("duocgiao")}
         >
           Được giao
         </button>
         <button
           className={cx({ active: activeButton === "dahuy" })}
-          onClick={() => handleButtonClick("Đã hủy")}
+          onClick={() => handleButtonClick("dahuy")}
         >
           Đã hủy
         </button>
