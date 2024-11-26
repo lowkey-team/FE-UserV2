@@ -1,14 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./SubHeader.module.scss";
-import { useEffect, useState } from "react";
-import { Cascader } from "antd";
 import { Link } from "react-router-dom";
-import { fetchCategoryAPI } from "~/apis";
 
 const cx = classNames.bind(styles);
 
 function SubHeader() {
-  
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("subHeader")}>
