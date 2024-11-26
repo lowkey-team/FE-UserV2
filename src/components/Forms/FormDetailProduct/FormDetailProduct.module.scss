@@ -110,7 +110,7 @@
       .quantity-size {
         margin-top: 10px;
 
-        span{
+        span {
           color: #960304;
         }
       }
@@ -247,7 +247,7 @@
     width: 55%;
     background-color: var(--primaryBold);
 
-    button {
+    .btn_AddCart {
       color: #fff;
     }
 
@@ -255,7 +255,7 @@
       background-color: #fff;
       box-shadow: 0 0 10px rgba(250, 69, 69, 0.6);
 
-      button {
+      .btn_AddCart {
         color: #960304;
         font-weight: 700;
       }
@@ -268,6 +268,7 @@
   margin-left: 10px;
   color: #909090;
 }
+
 .discount-price {
   color: #960304;
 }

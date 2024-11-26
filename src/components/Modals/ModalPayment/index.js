@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "./ModalPayment.module.scss";
+import { Input, notification } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
+import styles from "./ModalPayment.module.scss";
+import { formatDateToMySQL } from "~/utils/format";
+import { deleteCartByIdAPI } from "~/apis/cart";
 import {
   addInvoiceAPI,
   fecthFindByIdUserAPI,
@@ -13,10 +17,6 @@ import {
   PaymentStatusMoMoAPI,
   updateInvoices,
 } from "~/apis";
-import Cookies from "js-cookie";
-import { Input } from "antd";
-import { formatDateToMySQL } from "~/utils/format";
-import { deleteCartByIdAPI } from "~/apis/cart";
 
 const cx = classNames.bind(styles);
 const { TextArea } = Input;
@@ -28,6 +28,7 @@ function ModalPayment({
   finalAmount,
   voucherCode,
   note,
+  removeSelectedProducts 
 }) {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -143,12 +144,22 @@ function ModalPayment({
     console.log("orderData:", orderData);
     try {
       await addInvoiceAPI(orderData);
-      alert("Đơn hàng đã được hoàn tất!");
+      notification.success({
+        message: "Đơn hàng đã được hoàn tất!",
+        description: "Bạn đã hoàn tất đơn hàng và chờ xử lý.",
+      });
+      onClose();
+      await deleteCartByIdAPI(selectdCart);
+      removeSelectedProducts(selectedProducts);
+      // console.log("data delete:", selectdCart);
+
     } catch (error) {
-      alert("Có lỗi xảy ra khi hoàn tất đơn hàng. Vui lòng thử lại.");
+      notification.error({
+        message: "Có lỗi xảy ra khi hoàn tất đơn hàng",
+        description: "Vui lòng thử lại sau.",
+      });
     }
-    console.log("data delete", selectdCart);
-    await deleteCartByIdAPI(selectdCart);
+    // await deleteCartByIdAPI(selectdCart);
   };
 
   const handleMomoPayment = async () => {

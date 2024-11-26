@@ -3,29 +3,34 @@ import classNames from "classnames/bind";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import style from "./FormDetailProduct.module.scss";
-import { addToCartAPI } from "~/apis";
 import Cookies from "js-cookie";
+import { useCart } from "~/contexts/CartContext"; 
+import { notification } from 'antd';
+import { Link } from "react-router-dom";
+
+import { addToCartAPI } from "~/apis";
 import MessageNotification from "../../Message";
+import style from "./FormDetailProduct.module.scss";
 import { GetTotalCartByUserIdAPI } from "~/apis/cart";
-import { useCart } from "~/contexts/CartContext"; //
+import FormLogin from "../FormLogin";
 
 const cx = classNames.bind(style);
 
 function FormDetailProduct({ productDetails }) {
-  const [selectedSize, setSelectedSize] = useState(null); // Kiểm tra xem đã chọn size chưa
+  const [selectedSize, setSelectedSize] = useState(null); 
   const [selectedImage, setSelectedImage] = useState("");
-  const [selectedVariant, setSelectedVariant] = useState(null); // Lưu thông tin về size đã chọn
+  const [selectedVariant, setSelectedVariant] = useState(null); 
   const [quantity, setQuantity] = useState(1);
-
+  const [tempValue, setTempValue] = useState("1");
   const { updateCartCount } = useCart();
-
   const [cartCount, setCartCount] = useState(0);
   const messageRef = useRef();
+  const [isLoginFormVisible, setLoginFormVisible] = useState(false);
 
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
+
 
   useEffect(() => {
     if (productDetails) {
@@ -36,24 +41,43 @@ function FormDetailProduct({ productDetails }) {
 
   const adjustQuantity = (adjustment) => {
     const newQuantity = quantity + adjustment;
+  
     if (
       newQuantity >= 1 &&
       (!selectedVariant || newQuantity <= selectedVariant.stock)
     ) {
       setQuantity(newQuantity);
+      setTempValue(newQuantity.toString()); 
     }
   };
 
   const handleInputChange = (e) => {
-    const value = Math.max(
-      1,
-      Math.min(selectedVariant?.stock || 1, parseInt(e.target.value, 10) || 1)
-    );
-    setQuantity(value);
+    const inputValue = e.target.value;
+  
+    setTempValue(inputValue);
+  
+    const numericValue = parseInt(inputValue, 10);
+    if (numericValue > selectedVariant?.stock) {
+      notification.warning({
+        message: "Cảnh báo",
+        description: `Số lượng không được vượt quá tồn kho (${selectedVariant.stock}).`,
+      });
+    }
   };
 
-  const handleBlur = () => {
-    if (quantity < 1) setQuantity(1);
+
+  const handleInputBlur = () => {
+    let numericValue = parseInt(tempValue, 10);
+  
+    if (isNaN(numericValue) || numericValue <= 0) {
+      numericValue = 1;
+    }
+  
+    const stock = selectedVariant?.stock || 1;
+    const finalValue = Math.min(numericValue, stock);
+  
+    setQuantity(finalValue); 
+    setTempValue(finalValue.toString()); 
   };
 
   const handleSizeClick = (variant) => {
@@ -66,11 +90,6 @@ function FormDetailProduct({ productDetails }) {
     setSelectedImage(image);
   };
 
-  const priceAfterDiscount = selectedVariant
-    ? Math.round(selectedVariant.price * (1 - selectedVariant.discount / 100))
-    : 0;
-
-  const totalPrice = priceAfterDiscount * quantity;
 
   const sliderSettings = {
     dots: true,
@@ -97,7 +116,19 @@ function FormDetailProduct({ productDetails }) {
     ],
   };
 
+  const handleLoginSuccess = () => {
+    setLoginFormVisible(false);
+  };
+
+  
   const handleAddToCart = async () => {
+
+    if (!storedUser) {
+      // Nếu chưa đăng nhập, hiển thị form đăng nhập
+      setLoginFormVisible(true);
+      return;
+    }
+
     if (!selectedVariant) {
       messageRef.current.showWarning("Vui lòng chọn kích thước!");
       return;
@@ -151,6 +182,7 @@ function FormDetailProduct({ productDetails }) {
 
   return productDetails ? (
     <div className={cx("modal-content")}>
+      
       <div className={cx("Product-Image")}>
         <div className={cx("ImageBig")}>
           <img
@@ -159,22 +191,24 @@ function FormDetailProduct({ productDetails }) {
             className={cx("modal-image")}
           />
         </div>
-        <div className={cx("ImageSmalls")}>
-          <Slider {...sliderSettings}>
-            {productDetails.images.map((image, index) => (
-              <div
-                key={index}
-                className={cx("image-small")}
-                onClick={() => handleImageClick(image.image_url)}
-              >
-                <img
-                  src={image.image_url}
-                  alt={`${productDetails.productName} ${index}`}
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
+        {productDetails.images.length > 1 && ( 
+          <div className={cx("ImageSmalls")}>
+            <Slider {...sliderSettings}>
+              {productDetails.images.map((image, index) => (
+                <div
+                  key={index}
+                  className={cx("image-small")}
+                  onClick={() => handleImageClick(image.image_url)}
+                >
+                  <img
+                    src={image.image_url}
+                    alt={`${productDetails.productName} ${index}`}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
+        )}
       </div>
 
       <div className={cx("Product-Detail")}>
@@ -272,10 +306,9 @@ function FormDetailProduct({ productDetails }) {
                   </p>
                   <input
                     type="number"
-                    value={quantity}
+                    value={tempValue}
                     onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    min="1"
+                    onBlur={handleInputBlur}
                     style={{ width: "50px", textAlign: "center" }}
                   />
                   <p
@@ -294,10 +327,13 @@ function FormDetailProduct({ productDetails }) {
 
         <div className={cx("btn")}>
           <div className={cx("btnBuy")}>
-            <button>MUA NGAY</button>
+            <button><Link to='/productall'>MUA TIẾP</Link></button>
           </div>
           <div className={cx("btnAddCart")}>
-            <button onClick={handleAddToCart}>THÊM VÀO GIỎ</button>
+            <button className={cx("btn_AddCart")} onClick={handleAddToCart}>THÊM VÀO GIỎ</button>
+            {isLoginFormVisible && !storedUser && (
+              <FormLogin onLoginSuccess={handleLoginSuccess} onClose={() => setLoginFormVisible(false)} />
+            )}
           </div>
         </div>
       </div>

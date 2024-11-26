@@ -4,15 +4,16 @@ import styles from "./Cart.module.scss";
 import CardProductCart from "~/components/Cards/CardProductCart";
 import icons from "~/assets/icons";
 import ModalPayment from "~/components/Modals/ModalPayment";
+import { Color } from "antd/es/color-picker";
 import {
   fetchCartByUserIdAPI,
   fetchVoucherByID,
   fetchVoucherByIdAPI,
 } from "~/apis";
+import { deleteCartByIdAPI } from "~/apis/cart";
 import Cookies from "js-cookie";
 import { formatCurrency } from "~/utils/format";
 import MenuVoucherSaved from "~/components/MenuVoucherSaved";
-import { Color } from "antd/es/color-picker";
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function Cart() {
   const [selectedVoucherId, setSelectedVoucherId] = useState(null);
   const [voucherCode, setVoucherCode] = useState();
   const [note, setNote] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   const handleVoucherSelect = async (id) => {
     console.log("Voucher được chọn:", id);
@@ -46,6 +48,14 @@ function Cart() {
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
+
+  const removeSelectedProducts = (selectedProducts) => {
+    setProducts((prevProducts) => {
+      return prevProducts.filter(
+        (product) => !selectedProducts.some((selected) => selected.id === product.id)
+      );
+    });
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -322,6 +332,8 @@ function Cart() {
                 finalAmount={totalPrice}
                 voucherCode={voucherCode?.voucherCode || ""}
                 note={note}
+                removeSelectedProducts={removeSelectedProducts}
+
               />
             )}
           </div>

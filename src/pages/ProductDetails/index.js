@@ -136,7 +136,7 @@ function ProductDetails() {
 
       <section className={cx("section__des")}>
         <div className={cx("row")}>
-          <div className={cx("des-content", "col-md-9")}>
+          <div className={cx("des-content", vouchers.length === 0 ? "col-md-12" : "col-md-9")}>
             <div className={cx("des-title")}>
               <h3>Mô tả sản phẩm</h3>
               <hr></hr>
@@ -156,23 +156,25 @@ function ProductDetails() {
             </div>
           </div>
 
-          <div className={cx("col-voucher", "col-md-3")}>
-            <div className={cx("voucher-content")}>
-              {vouchers.map((voucher) => (
-                <CardVoucher
-                  key={voucher.id}
-                  id={voucher.id}
-                  voucherCode={voucher.voucherCode}
-                  description={voucher.description}
-                  maxUses={voucher.maxUses}
-                  usedCount={voucher.usedCount}
-                  endDate={voucher.endDate}
-                  StartDate={voucher.endDate}
-                  onVoucherAdded={handleVoucherAdded}
-                />
-              ))}
+          {vouchers.length > 0 && (
+            <div className={cx("col-voucher", "col-md-3")}>
+              <div className={cx("voucher-content")}>
+                {vouchers.map((voucher) => (
+                  <CardVoucher
+                    key={voucher.id}
+                    id={voucher.id}
+                    voucherCode={voucher.voucherCode}
+                    description={voucher.description}
+                    maxUses={voucher.maxUses}
+                    usedCount={voucher.usedCount}
+                    endDate={voucher.endDate}
+                    StartDate={voucher.endDate}
+                    onVoucherAdded={handleVoucherAdded}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
