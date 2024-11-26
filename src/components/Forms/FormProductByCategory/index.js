@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 
-import styles from './FormProductByCategory.module.scss'
+import styles from "./FormProductByCategory.module.scss";
 import { useEffect, useState } from "react";
 import { fecthPorductAPI, fetchProductByCategory } from "~/apis";
 import CardProduct from "../../Cards/CardProduct";
@@ -8,7 +8,7 @@ import CardProduct from "../../Cards/CardProduct";
 const cx = classNames.bind(styles);
 
 function FormProductByCategory() {
-    const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,8 +35,8 @@ function FormProductByCategory() {
     fetchProducts();
   }, []);
 
-   // Nhóm sản phẩm theo danh mục
-   const groupedProducts = products.reduce((acc, product) => {
+  // Nhóm sản phẩm theo danh mục
+  const groupedProducts = products.reduce((acc, product) => {
     if (!acc[product.categoryName]) {
       acc[product.categoryName] = [];
     }
@@ -44,40 +44,44 @@ function FormProductByCategory() {
     return acc;
   }, {});
 
-    return ( 
-        <div className={cx("wrapper", 'container')}>
-        <div className={cx("header")}>
-          <div className={cx("title")}>
-            <p>Sản phẩm theo danh mục</p>
-          </div>
+  return (
+    <div className={cx("wrapper", "container")}>
+      <div className={cx("header")}>
+        <div className={cx("title")}>
+          <p>Sản phẩm theo danh mục</p>
         </div>
-  
-        <div className={cx('form-productByCategory')}>
+      </div>
+
+      <div className={cx("form-productByCategory")}>
         {loading ? (
           <p>Loading...</p>
         ) : Object.keys(groupedProducts).length > 0 ? (
           // Lặp qua các nhóm danh mục và hiển thị sản phẩm
           Object.keys(groupedProducts).map((category) => (
-            <div key={category} className={cx('category-section')}>
-              <div className={cx('category-name')}>
-                <div className={cx('title-category')}>
-                  <h4>Sản phẩm: <span>{category}</span></h4>
+            <div key={category} className={cx("category-section")}>
+              <div className={cx("category-name")}>
+                <div className={cx("title-category")}>
+                  <h4>
+                    Sản phẩm: <span>{category}</span>
+                  </h4>
                 </div>
               </div>
               <div className={cx("product-list")}>
                 {groupedProducts[category].map((product) => (
-                   <CardProduct
-                   key={product.ProductID}
-                   id={product.ProductID}
-                   FirstImage={
-                     product.FirstImage ? product.FirstImage : "placeholder.jpg"
-                   }
-                   SupCategoryName={product.SupCategoryName}
-                   productName={product.productName}
-                   originalPrice={product.originalPrice}
-                   reducedPrice={product.ReducedPrice}
-                   discount={product.discount}
-                 />
+                  <CardProduct
+                    key={product.product_id}
+                    id={product.product_id}
+                    FirstImage={
+                      product.FirstImage
+                        ? product.FirstImage
+                        : "placeholder.jpg"
+                    }
+                    SupCategoryName={product.SupCategoryName}
+                    productName={product.productName}
+                    originalPrice={product.originalPrice}
+                    reducedPrice={product.ReducedPrice}
+                    discount={product.discount}
+                  />
                 ))}
               </div>
             </div>
@@ -86,8 +90,8 @@ function FormProductByCategory() {
           <p>No products available.</p>
         )}
       </div>
-      </div>
-     );
+    </div>
+  );
 }
 
 export default FormProductByCategory;

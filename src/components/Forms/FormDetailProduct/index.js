@@ -7,6 +7,8 @@ import style from "./FormDetailProduct.module.scss";
 import { addToCartAPI } from "~/apis";
 import Cookies from "js-cookie";
 import MessageNotification from "../../Message";
+import { GetTotalCartByUserIdAPI } from "~/apis/cart";
+import { useCart } from "~/contexts/CartContext"; //
 
 const cx = classNames.bind(style);
 
@@ -16,6 +18,9 @@ function FormDetailProduct({ productDetails }) {
   const [selectedVariant, setSelectedVariant] = useState(null); // Lưu thông tin về size đã chọn
   const [quantity, setQuantity] = useState(1);
 
+  const { updateCartCount } = useCart();
+
+  const [cartCount, setCartCount] = useState(0);
   const messageRef = useRef();
 
   const storedUser = Cookies.get("user")
@@ -111,11 +116,12 @@ function FormDetailProduct({ productDetails }) {
     };
 
     const jsonData = JSON.stringify(dataToAdd);
-
     try {
       const response = await addToCartAPI(JSON.parse(jsonData));
       if (response.status === 200) {
         messageRef.current.showSuccess("Sản phẩm được cập nhật vào giỏ hàng");
+        const updatedCartCount = await GetTotalCartByUserIdAPI(storedUser.id);
+        updateCartCount(updatedCartCount || 0);
       } else {
         messageRef.current.showError("Thêm thất bại");
       }
@@ -123,6 +129,25 @@ function FormDetailProduct({ productDetails }) {
       messageRef.current.showError("Có lỗi xảy ra, vui lòng thử lại");
     }
   };
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      if (storedUser) {
+        try {
+          const response = await GetTotalCartByUserIdAPI(storedUser.id);
+          console.log("Cart count:", response);
+          setCartCount(response || 0);
+        } catch (error) {
+          console.error("Error fetching cart count:", error);
+          setCartCount(0);
+        }
+      } else {
+        setCartCount(0);
+      }
+    };
+
+    fetchCartCount();
+  }, [storedUser]);
 
   return productDetails ? (
     <div className={cx("modal-content")}>
