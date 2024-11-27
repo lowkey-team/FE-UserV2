@@ -118,9 +118,6 @@ function Header() {
       <Menu.Item key="account" icon={<UserOutlined />}>
         Thông tin tài khoản
       </Menu.Item>
-      <Menu.Item key="settings" icon={<SettingOutlined />}>
-        Lịch sử mua hàng
-      </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />} danger>
         Đăng xuất
       </Menu.Item>
@@ -216,7 +213,7 @@ function Header() {
               <div className={cx("input-container")}>
                 <input
                   className={cx("input-search")}
-                  placeholder="tìm kiếm sản phẩm..."
+                  placeholder="Tìm kiếm sản phẩm..."
                   onChange={handleSearchChange}
                 />
                 <FontAwesomeIcon
@@ -233,7 +230,7 @@ function Header() {
                     className={cx("icon-cart")}
                     icon={faCartShopping}
                   />
-                  <span>Giỏ hàng ({cartCount})</span>
+                  <span>Giỏ hàng {cartCount > 0 ? `(${cartCount})` : ""}</span>
                 </Link>
               </div>
               {user ? (

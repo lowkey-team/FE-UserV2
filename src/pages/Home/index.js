@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useInView } from "react-intersection-observer";
 import BackTop from "antd/es/float-button/BackTop";
-
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(style);
 
 const settings = {
@@ -28,6 +28,15 @@ function Home() {
 
     const { ref: leftRef, inView: leftInView } = useInView({ triggerOnce: true });
     const { ref: rightRef, inView: rightInView } = useInView({ triggerOnce: true });
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/productall');
+    };
+
+    const handleClickProductOfSubCategory = () => {
+        navigate('/product');
+    };
 
     return ( 
         <div className={cx('wrapper', 'container')}>
@@ -98,7 +107,7 @@ function Home() {
                             </p>
                             {/* { outline primary to="/login" onClick={()=>alert('checked!')} target="_blank"} */}
                             <div className={classNames(cx('wrapper-btnPottery'))}>
-                                <Button outline displayRight onClick={() => alert('checked!')} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} />  </Button>
+                            <Button outline displayRight onClick={handleClick}>Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /></Button>
                             </div>
                         </div>
                     </div>
@@ -120,7 +129,7 @@ function Home() {
                             Các làng nghề gốm nổi tiếng như Bát Tràng (Hà Nội), Chu Đậu (Hải Dương), và Phước Tích (Huế) đã tồn tại và phát triển qua nhiều thế hệ, tạo ra những sản phẩm độc đáo, từ chén đĩa, bình hoa, cho đến các tượng gốm nghệ thuật. 
                             Gốm sứ Việt Nam được yêu thích nhờ vào họa tiết tinh tế, màu sắc phong phú và chất lượng bền đẹp. Các nghệ nhân không chỉ làm ra những sản phẩm dùng trong gia đình mà còn tạo ra các tác phẩm nghệ thuật mang tính trang trí cao, phù hợp với nhiều không gian nội thất.</p>
                         <div className={classNames(cx('wrapper-btnBamboo'))}>
-                            <Button outline displayRight onClick={() => alert('checked!')} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /> </Button>
+                            <Button outline displayRight onClick={handleClickProductOfSubCategory} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /></Button>
                         </div>
                     </div>
                 </div>
@@ -142,7 +151,7 @@ function Home() {
                         <p>Sản phẩm tre đan là nét đặc trưng của làng nghề Việt Nam, thể hiện sự khéo léo của nghệ nhân qua các vật dụng như giỏ, khay, túi xách và đồ trang trí. 
                             Phát triển mạnh ở Thạch Thất, Chương Mỹ (Hà Nội) và Kim Sơn (Ninh Bình), nghề tre đan không chỉ gắn bó với đời sống thường nhật mà còn được ưa chuộng nhờ tính thân thiện với môi trường, mang lại vẻ đẹp tự nhiên và bền vững.</p>
                         <div className={classNames(cx('wrapper-btnBamboo'))}>
-                            <Button outline displayRight onClick={() => alert('checked!')} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /> </Button>
+                        <Button outline displayRight onClick={handleClickProductOfSubCategory} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /></Button>
                         </div>
                     </div>
                 </div>
@@ -165,7 +174,7 @@ function Home() {
                         Đặc biệt, tranh sơn mài hay tranh thêu truyền thống là những sản phẩm trang trí đặc sắc, vừa mang tính nghệ thuật cao vừa góp phần tôn vinh văn hóa Việt trong không gian sống hiện đại.
                         </p>
                         <div className={classNames(cx('wrapper-btnBamboo'))}>
-                            <Button outline displayRight onClick={() => alert('checked!')} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /> </Button>
+                        <Button outline displayRight onClick={handleClickProductOfSubCategory} >Xem sản phẩm <FontAwesomeIcon icon={faArrowRight} /></Button>
                         </div>
                     </div>
                 </div>

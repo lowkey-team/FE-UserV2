@@ -49,11 +49,15 @@ function FormDetailProduct({ productDetails }) {
       1,
       Math.min(selectedVariant?.stock || 1, parseInt(e.target.value, 10) || 1)
     );
+    if (value > selectedVariant?.stock) {
+      messageRef.current.showWarning("Số lượng không được vượt quá số lượng tồn!");
+    }
     setQuantity(value);
   };
 
   const handleBlur = () => {
     if (quantity < 1) setQuantity(1);
+    if (quantity > selectedVariant?.stock) setQuantity(selectedVariant.stock);
   };
 
   const handleSizeClick = (variant) => {
@@ -294,7 +298,7 @@ function FormDetailProduct({ productDetails }) {
 
         <div className={cx("btn")}>
           <div className={cx("btnBuy")}>
-            <button>MUA NGAY</button>
+            <a href="/productall"><button>MUA TIẾP</button></a>
           </div>
           <div className={cx("btnAddCart")}>
             <button onClick={handleAddToCart}>THÊM VÀO GIỎ</button>

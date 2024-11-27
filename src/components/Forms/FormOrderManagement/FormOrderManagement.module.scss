@@ -18,18 +18,15 @@
         transition: all .1s linear;
         border-radius: 999px;
 
-        &:hover {
+        &.active {
             background-color: #fff;
             color: #333;
             font-weight: 600;
         }
+
     }
 
-    .active {
-        background-color: #fff;
-        color: #333;
-        font-weight: 600;
-    }
+
 }
 
 .order-content {

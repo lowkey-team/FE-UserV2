@@ -42,10 +42,9 @@ function FormNewProduct() {
 
   // Cấu hình cho slider
   const sliderSettings = {
-    dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 4,
     slidesToScroll: 1,
     adaptiveHeight: true,
     responsive: [
@@ -55,7 +54,6 @@ function FormNewProduct() {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
           centerMode: true,
           centerPadding: "10px",
         },
@@ -77,7 +75,7 @@ function FormNewProduct() {
       <div className={cx("wrapper", 'container')}>
         <div className={cx("header")}>
           <div className={cx("title")}>
-            <p>Top 10 Sản phẩm mới nhất</p>
+            <p>Sản phẩm mới nhất</p>
           </div>
         </div>
         <div className={cx("product-list")}>
@@ -85,7 +83,7 @@ function FormNewProduct() {
             <p>Loading...</p>
           ) : products.length > 0 ? (
             <Slider {...sliderSettings}>
-              {products.slice(0, 10).map((product) => (
+              {products.map((product) => (
                 <div key={product.product_id} className={cx("product-item")}>
                   <CardProduct
                     id={product.product_id}

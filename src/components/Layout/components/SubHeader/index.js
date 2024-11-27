@@ -3,7 +3,6 @@ import styles from "./SubHeader.module.scss";
 import { useEffect, useState } from "react";
 import { Cascader } from "antd";
 import { Link } from "react-router-dom";
-import { Dropdown, Menu } from "antd";
 import { fetchCategoryAPI } from "~/apis";
 
 const cx = classNames.bind(styles);
@@ -44,18 +43,7 @@ function SubHeader() {
     <div className={cx("wrapper")}>
       <div className={cx("subHeader")}>
 
-        <div className={cx("btn-category")}>
-        <Cascader
-          options={options}
-          onChange={onChange}
-          placeholder="Chọn danh mục"
-          expandTrigger="hover"
-          className={cx("custom-cascader")}
-          popupClassName={cx("custom-popup")}
-          />
-
-        </div>
-
+       
         <div className={cx('menu-header')}>
           <ul className={cx('menu-list')}>
             <li className={cx('menu-item')}>
