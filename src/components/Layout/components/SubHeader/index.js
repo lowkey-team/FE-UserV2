@@ -1,8 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./SubHeader.module.scss";
-import { useEffect, useState } from "react";
-import { Cascader } from "antd";
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { fetchCategoryAPI } from "~/apis";
 
 const cx = classNames.bind(styles);

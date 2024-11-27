@@ -56,7 +56,7 @@ function Footer() {
 
             <div className={cx('footer')}>
                 <div style={{ width: '400px' }} className={cx('footer-column')}>
-                    <img src ={images.logo} alt="Mỹ nghệ Việt"/>
+                    <a href='/'><img src ={images.logo} alt="Mỹ nghệ Việt"/></a>
                     <p className={cx('company')}>Công ty cổ phẩn đầu tư - Phát triển Mỹ Nghệ Việt</p>
                     <p>Giấy chứng nhận Đăng ký Kinh doanh số 0311761046 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh, năm 2012.</p>
                     <hr/>
@@ -69,9 +69,9 @@ function Footer() {
                 <div className={cx('footer-column')}>
                     <h3 className={cx('company')}>VỀ CHÚNG TÔI</h3>
                     <ul>
-                        <li>› Giới thiệu</li>
+                        <a href='/'><li>› Giới thiệu</li></a>
                         <li>› Giá trị cốt lõi - Tầm nhìn - Sứ mệnh</li>
-                        <li>› Các nhóm sản phẩm</li>
+                        <a href='/product'><li>› Các nhóm sản phẩm</li></a>
                         <li>› Thành viên Vecom</li>
                         <li>› Hội viên Hawee</li>
                         <li>› 5 điểm khác biệt tại Mỹ Nghệ Việt</li>

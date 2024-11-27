@@ -41,10 +41,10 @@ function ProductBySupCategory() {
   }, [id]);
 
   return (
-    <div className={cx("wrapper")}>
+    <div className={cx("wrapper", "container")}>
       <div className={cx("header")}>
         <div className={cx("title")}>
-          <p>Sản phẩm khuyến mãi</p>
+          <p>Sản phẩm</p>
         </div>
       </div>
 
