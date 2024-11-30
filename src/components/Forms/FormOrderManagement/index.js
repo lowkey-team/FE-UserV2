@@ -9,7 +9,7 @@ import { fecthInvoiceByIdUserAPI } from "~/apis";
 const cx = classNames.bind(styles);
 
 function FormOrderManagement() {
-  const [activeButton, setActiveButton] = useState("chothanhtoan");
+  const [activeButton, setActiveButton] = useState("Chờ thanh toán");
   const [data, setData] = useState([]);
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
@@ -24,49 +24,48 @@ function FormOrderManagement() {
     setData(dataInvoice);
   };
 
-
   return (
     <div className={cx("wrapper")}>
       <div className={cx("order-header")}>
         <button
-          className={cx({ active: activeButton === "chothanhtoan" })}
-          onClick={() => handleButtonClick("chothanhtoan")}
+          className={cx({ active: activeButton === "Chờ thanh toán" })}
+          onClick={() => handleButtonClick("Chờ thanh toán")}
         >
           Chờ thanh toán
         </button>
         <button
-          className={cx({ active: activeButton === "choxacnhan" })}
-          onClick={() => handleButtonClick("choxacnhan")}
+          className={cx({ active: activeButton === "Đang xử lý" })}
+          onClick={() => handleButtonClick("Đang xử lý")}
         >
-          Chờ xác nhận
+          Đang xử lý
         </button>
         <button
-          className={cx({ active: activeButton === "cholayhang" })}
-          onClick={() => handleButtonClick("cholayhang")}
+          className={cx({ active: activeButton === "Chờ lấy hàng" })}
+          onClick={() => handleButtonClick("Chờ lấy hàng")}
         >
           Chờ lấy hàng
         </button>
         <button
-          className={cx({ active: activeButton === "chogiaohang" })}
-          onClick={() => handleButtonClick("chogiaohang")}
+          className={cx({ active: activeButton === "Chờ giao hàng" })}
+          onClick={() => handleButtonClick("Chờ giao hàng")}
         >
           Chờ giao hàng
         </button>
         <button
-          className={cx({ active: activeButton === "trahang" })}
-          onClick={() => handleButtonClick("trahang")}
+          className={cx({ active: activeButton === "Trả hàng" })}
+          onClick={() => handleButtonClick("Trả hàng")}
         >
           Trả hàng
         </button>
         <button
-          className={cx({ active: activeButton === "duocgiao" })}
-          onClick={() => handleButtonClick("duocgiao")}
+          className={cx({ active: activeButton === "Được giao" })}
+          onClick={() => handleButtonClick("Được giao")}
         >
           Được giao
         </button>
         <button
-          className={cx({ active: activeButton === "dahuy" })}
-          onClick={() => handleButtonClick("dahuy")}
+          className={cx({ active: activeButton === "Đã hủy" })}
+          onClick={() => handleButtonClick("Đã hủy")}
         >
           Đã hủy
         </button>

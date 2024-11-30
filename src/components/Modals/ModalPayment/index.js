@@ -169,7 +169,8 @@ function ModalPayment({
       const invoiceResponse = await addInvoiceAPI(orderData);
       const invoiceId = invoiceResponse.data.invoiceId;
       alert("Đơn hàng đã tạo thành công. Vui lòng thực hiện thanh toán");
-
+      await deleteCartByIdAPI(selectdCart);
+      removeSelectedProducts(selectedProducts);
       const paymentData = await PaymentMoMoAPI(orderData);
 
       if (paymentData && paymentData.payUrl) {
