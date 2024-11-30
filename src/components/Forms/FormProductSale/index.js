@@ -5,6 +5,7 @@ import CardProduct from "../../Cards/CardProduct";
 import { useEffect, useState } from "react";
 import { fecthPorductAPI } from "~/apis";
 import Button from "../../Button";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -51,7 +52,7 @@ function FormProductSale() {
         {loading ? (
           <p>Loading...</p>
         ) : products.length > 0 ? (
-          products.map((product) => (
+          products.slice(0, 8).map((product) => (
             <CardProduct
               key={product.ProductID}
               id={product.ProductID}
@@ -72,7 +73,7 @@ function FormProductSale() {
       </div>
 
       <div className={cx("btn-more")}>
-        <Button outline>Xem tất cả</Button>
+        <Button outline><Link to="/saleproductall">Xe tất cả</Link></Button>
       </div>
     </div>
   );

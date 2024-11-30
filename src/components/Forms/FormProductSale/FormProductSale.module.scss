@@ -11,6 +11,10 @@
   padding: 20px;
 }
 
+.wrapper-showAllPage{
+  margin-top: 13%;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -18,9 +22,13 @@
   height: 60px;
   border-radius: 999px;
   align-items: center;
-  background-image: url(https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnQ2NGY4bG9nc2hmaWJoaWwwZng3bWtjaDBoZXAxbnNoNDcxemoyMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1NSCwdxI5vWwXcig09/giphy.webp);
+  // background-image: url(https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnQ2NGY4bG9nc2hmaWJoaWwwZng3bWtjaDBoZXAxbnNoNDcxemoyMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1NSCwdxI5vWwXcig09/giphy.webp);
   padding: 5px;
   width: 100%;
+
+  border: 3px solid linear-gradient(0deg, red, orange, yellow) 1;
+  // border: linear-gradient(0deg, red, orange, yellow) 1;
+  animation: borderColorChange 5s linear infinite;
 }
 
 .title {
@@ -47,6 +55,13 @@
   gap: 16px;
 }
 
+.product-listAllPage{
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
 @media (max-width: 1200px) {
   .product-list {
     grid-template-columns: repeat(3, 1fr);
@@ -62,5 +77,15 @@
 @media (max-width: 576px) {
   .product-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+//animate
+@keyframes borderColorChange {
+  0% {
+    border-image-source: linear-gradient(0deg, red, orange, yellow);
+  }
+  100% {
+    border-image-source: linear-gradient(360deg, red, orange, yellow);
   }
 }

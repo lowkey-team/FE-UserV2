@@ -6,6 +6,7 @@ import { fecthAllPorductAPI, fetchCategoryAPI } from "~/apis";
 import CardProduct from "~/components/Cards/CardProduct";
 import { Slider } from "antd";
 import icons from "~/assets/icons";
+import Sidebar from "~/components/Layout/components/Sidebar";
 
 const cx = classNames.bind(style);
 
@@ -84,50 +85,15 @@ function ProductAll() {
 
            <div className={cx('row')}>
                 <div className={cx("col-md-2")}>
-                    <div className={cx('sidebar')}>
-        
-                        {/* Bộ lọc giá */}
-                        <div className={cx('slide')}>
-                           <div className={cx('silde-price')}>
-                                <h3 className={cx('tittle-price')}>LỌC THEO GIÁ</h3>
-                                <Slider
-                                    range
-                                    min={1}
-                                    max={1000000}
-                                    value={sliderValue}
-                                    onChange={handleSliderChange}
-                                />
-                                <h3 className={cx('label-price')}>
-                                    {`Giá từ: ${sliderValue[0]}đ - ${sliderValue[1]}đ`}
-                                </h3>
-                                {/* <button
-                                    className={cx('btn-filter')}
-                                    onClick={() => setTempSliderValue(sliderValue)} // Áp dụng giá trị tạm thời
-                                >
-                                    LỌC
-                                </button> */}
-                           </div>
-                        </div>
-        
-        {/* lọc danh mục */}
-                        <div className={cx('formCategory')}>
-                        <h3>Loại sản phẩm</h3>
-                        {categories.map((category) => (
-                            <div key={category._id}>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        value={category.category_name}
-                                        checked={selectedCategories.includes(category.category_name)}
-                                        onChange={handleCategoriesChange}
-                                    />
-                                    {category.category_name}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-        
-                    </div>
+
+                    <Sidebar
+                        categories={categories}
+                        selectedCategories={selectedCategories}
+                        onCategoryChange={handleCategoriesChange}
+                        sliderValue={sliderValue}
+                        onSliderChange={handleSliderChange}
+                    />
+
                 </div>
     
                 <div className={cx('col-md-10')}>

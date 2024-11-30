@@ -44,7 +44,7 @@ function ProductBySupCategory() {
     <div className={cx("wrapper", "container")}>
       <div className={cx("header")}>
         <div className={cx("title")}>
-          <p>Sản phẩm</p>
+          <p>Sản phẩm: <span>{products.SupCategoryName}</span></p>
         </div>
       </div>
 

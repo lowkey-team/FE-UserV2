@@ -1,10 +1,18 @@
 .wrapper {
-    margin-top: 200px;
+    margin-top: 12%;
     min-height: 100vh;
 }
 
 
-
+.titlle-allsale{
+    margin: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    h5{
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+}
 .product-list {
     display: grid;
     width: 100%;

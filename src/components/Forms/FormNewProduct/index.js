@@ -8,6 +8,9 @@ import styles from "./FormNewProduct.module.scss";
 import { fetchTop10ProductNewAPI } from "~/apis";
 import Button from "../../Button";
 import CardProduct from "../../Cards/CardProduct";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
@@ -76,6 +79,9 @@ function FormNewProduct() {
         <div className={cx("header")}>
           <div className={cx("title")}>
             <p>Sản phẩm mới nhất</p>
+          </div>
+          <div className={cx("btn-more")}>
+            <Link to="/newproductall"><p>Xem tất cả <FontAwesomeIcon icon={faAnglesRight}/></p></Link>
           </div>
         </div>
         <div className={cx("product-list")}>

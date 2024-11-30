@@ -8,6 +8,7 @@ import ProductDetails from "~/pages/ProductDetails";
 import Products from "~/pages/Products";
 import Profile from "~/pages/Profile";
 import SearchPage from "~/pages/SearchPage";
+import ShowAllProductSale from "~/pages/ShowAllProductSale";
 
 //Public Routes
 const publicRoutes = [
@@ -24,6 +25,8 @@ const publicRoutes = [
     layout: HeaderOnly,
   },
   { path: "/search", component: SearchPage, layout: HeaderOnly },
+  { path: "/saleproductall", component: ShowAllProductSale, layout: HeaderOnly },
+  { path: "/newproductall", component: ShowAllProductSale, layout: HeaderOnly },
 ];
 
 //Private Routers
