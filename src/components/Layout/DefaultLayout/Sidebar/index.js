@@ -36,7 +36,6 @@ function Sidebar({ selectedCategories, setSelectedCategories, selectedPrice, set
                 : [...prev, value]
         );
     };
-  
     const handleSliderChange = (value) => {
         setTempSliderValue(value); // Cập nhật giá trị tạm thời
     };

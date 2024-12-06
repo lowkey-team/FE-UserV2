@@ -24,7 +24,6 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
       try {
         const data = await fetchCategoryAPI();
         setCategories(data);
-  
         // Chuyển đổi dữ liệu categories sang cấu trúc menu items
         const items = createMenuItems(data);
         setMenuItems(items);
@@ -34,7 +33,6 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
     };
     loadCategories();
   }, []);
-  
 
   const createMenuItems = (categories) => {
     return categories.map((category) => ({

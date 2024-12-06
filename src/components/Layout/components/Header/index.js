@@ -224,24 +224,28 @@ function Header() {
             </form>
 
             <div className={cx("action")}>
-              <div className={cx("btn-cart")}>
-                <Link to="/cart">
-                  <FontAwesomeIcon
-                    className={cx("icon-cart")}
-                    icon={faCartShopping}
-                  />
-                  <span>Giỏ hàng {cartCount > 0 ? `(${cartCount})` : ""}</span>
-                </Link>
-              </div>
+            <div className={cx("btn-cart")}>
+              <Link to="/cart">
+                <FontAwesomeIcon
+                  className={cx("icon-cart")}
+                  icon={faCartShopping}
+                  data-count={cartCount > 0 ? cartCount : 0}
+                />
+                  Giỏ hàng
+              </Link>
+              {cartCount > 0 ? <span className={cx("cart-count")}>{cartCount}</span> : ""}
+            </div>
+
               {user ? (
                 <>
                   <Dropdown overlay={menu} trigger={["click"]}>
-                    <p
-                      className={cx("user-name")}
+                    <div
+                      className={cx("well-come")}
                       onClick={(e) => e.preventDefault()}
                     >
-                      {user.FullName}
-                    </p>
+                      <span className={cx("greeting")}>Xin chào!</span>
+                      <span  className={cx("user-name")}>{user.FullName}</span>
+                    </div>
                   </Dropdown>
                 </>
               ) : (
