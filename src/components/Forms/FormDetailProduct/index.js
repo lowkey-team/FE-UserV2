@@ -4,8 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Cookies from "js-cookie";
-import { useCart } from "~/contexts/CartContext"; 
-import { notification } from 'antd';
+import { useCart } from "~/contexts/CartContext";
+import { notification } from "antd";
 import { Link } from "react-router-dom";
 
 import { addToCartAPI } from "~/apis";
@@ -17,20 +17,21 @@ import FormLogin from "../FormLogin";
 const cx = classNames.bind(style);
 
 function FormDetailProduct({ productDetails }) {
-  const [selectedSize, setSelectedSize] = useState(null); 
+  const [selectedSize, setSelectedSize] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
-  const [selectedVariant, setSelectedVariant] = useState(null); 
+  const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [tempValue, setTempValue] = useState("1");
   const { updateCartCount } = useCart();
   const [cartCount, setCartCount] = useState(0);
   const messageRef = useRef();
   const [isLoginFormVisible, setLoginFormVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isInputError, setInputError] = useState(false);
 
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
-
 
   useEffect(() => {
     if (productDetails) {
@@ -41,55 +42,67 @@ function FormDetailProduct({ productDetails }) {
 
   const adjustQuantity = (adjustment) => {
     const newQuantity = quantity + adjustment;
-  
     if (
       newQuantity >= 1 &&
       (!selectedVariant || newQuantity <= selectedVariant.stock)
     ) {
       setQuantity(newQuantity);
-      setTempValue(newQuantity.toString()); 
+      setTempValue(newQuantity.toString());
+      setInputError(false); // Xóa lỗi khi thay đổi số lượng hợp lệ
+      setErrorMessage("");
     }
   };
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-  
     setTempValue(inputValue);
-  
     const numericValue = parseInt(inputValue, 10);
     if (numericValue > selectedVariant?.stock) {
-      notification.warning({
-        message: "Cảnh báo",
-        description: `Số lượng không được vượt quá tồn kho (${selectedVariant.stock}).`,
-      });
+      setErrorMessage(
+        `Số lượng không được vượt quá ${selectedVariant.stock}`
+      );
+      setInputError(true);
+      // notification.warning({
+      //   message: "Cảnh báo",
+      //   description: `Số lượng không được vượt quá tồn kho (${selectedVariant.stock}).`,
+      // });
+    } else {
+      setErrorMessage("");
+      setInputError(false);
     }
   };
 
-
   const handleInputBlur = () => {
     let numericValue = parseInt(tempValue, 10);
-  
     if (isNaN(numericValue) || numericValue <= 0) {
       numericValue = 1;
     }
-  
     const stock = selectedVariant?.stock || 1;
     const finalValue = Math.min(numericValue, stock);
-  
-    setQuantity(finalValue); 
-    setTempValue(finalValue.toString()); 
+    setQuantity(finalValue);
+    setTempValue(finalValue.toString());
+
+    if (finalValue > stock) {
+      setErrorMessage(`Số lượng không được vượt quá ${stock}`);
+      setInputError(true);
+    } else {
+      setErrorMessage(""); 
+      setInputError(false);
+    }
   };
 
   const handleSizeClick = (variant) => {
     setSelectedSize(variant.size);
     setSelectedVariant(variant);
-    setQuantity(1); // Reset quantity khi thay đổi size
+    setQuantity(1);
+
+    setErrorMessage("");
+    setInputError(false);
   };
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
-
 
   const sliderSettings = {
     dots: true,
@@ -120,11 +133,8 @@ function FormDetailProduct({ productDetails }) {
     setLoginFormVisible(false);
   };
 
-  
   const handleAddToCart = async () => {
-
     if (!storedUser) {
-      // Nếu chưa đăng nhập, hiển thị form đăng nhập
       setLoginFormVisible(true);
       return;
     }
@@ -182,7 +192,6 @@ function FormDetailProduct({ productDetails }) {
 
   return productDetails ? (
     <div className={cx("modal-content")}>
-      
       <div className={cx("Product-Image")}>
         <div className={cx("ImageBig")}>
           <img
@@ -191,7 +200,7 @@ function FormDetailProduct({ productDetails }) {
             className={cx("modal-image")}
           />
         </div>
-        {productDetails.images.length > 1 && ( 
+        {productDetails.images.length > 1 && (
           <div className={cx("ImageSmalls")}>
             <Slider {...sliderSettings}>
               {productDetails.images.map((image, index) => (
@@ -309,7 +318,11 @@ function FormDetailProduct({ productDetails }) {
                     value={tempValue}
                     onChange={handleInputChange}
                     onBlur={handleInputBlur}
-                    style={{ width: "50px", textAlign: "center" }}
+                    style={{
+                      width: "50px",
+                      textAlign: "center",
+                      borderColor: isInputError ? "red" : "#ccc",
+                    }}
                   />
                   <p
                     onClick={() => adjustQuantity(1)}
@@ -318,21 +331,31 @@ function FormDetailProduct({ productDetails }) {
                     +
                   </p>
                 </div>
+                {isInputError && (
+                  <p className={cx("error-message")}>{errorMessage}</p>
+                )}
               </div>
             ) : null}
           </div>
         ) : (
-          <p>No variants available.</p>
+          <p>Không có biến thể hợp lệ.</p>
         )}
 
         <div className={cx("btn")}>
           <div className={cx("btnBuy")}>
-            <button><Link to='/productall'>MUA TIẾP</Link></button>
+            <button>
+              <Link to="/productall">MUA TIẾP</Link>
+            </button>
           </div>
           <div className={cx("btnAddCart")}>
-            <button className={cx("btn_AddCart")} onClick={handleAddToCart}>THÊM VÀO GIỎ</button>
+            <button className={cx("btn_AddCart")} onClick={handleAddToCart}>
+              THÊM VÀO GIỎ
+            </button>
             {isLoginFormVisible && !storedUser && (
-              <FormLogin onLoginSuccess={handleLoginSuccess} onClose={() => setLoginFormVisible(false)} />
+              <FormLogin
+                onLoginSuccess={handleLoginSuccess}
+                onClose={() => setLoginFormVisible(false)}
+              />
             )}
           </div>
         </div>

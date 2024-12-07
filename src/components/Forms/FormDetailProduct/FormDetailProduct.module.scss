@@ -102,6 +102,13 @@
       width: 100%;
       padding: 10px;
 
+      .error-message {
+        color: red;
+        font-size: 15px;
+        margin-top: 5px;
+      }
+      
+
       p {
         font-size: 18px;
         color: black;
@@ -130,12 +137,9 @@
           font-weight: bold;
           margin: 0;
           display: flex;
-          /* Thêm display flex để căn chỉnh các phần tử con */
           justify-content: space-between;
-          /* Đưa các phần tử con ở hai bên */
           align-items: center;
 
-          /* Căn giữa theo chiều dọc */
           p {
             margin-top: 10px;
             color: #fff;
@@ -159,7 +163,6 @@
           text-decoration: line-through;
           color: #8f8f8f;
           display: flex;
-          /* Thêm display flex để căn chỉnh */
           align-items: center;
         }
       }
@@ -176,9 +179,7 @@
         display: flex;
         gap: 10px;
         -webkit-user-select: none;
-        /* Safari 3+, Safari iOS 3+ */
         user-select: none;
-        /* Modern browsers */
         cursor: pointer;
 
         p {
@@ -200,11 +201,18 @@
           height: 30px;
           text-align: center;
           font-size: 18px;
+          border: 2px solid #333;
+
+          &:focus{
+            outline: none;
+          }
         }
       }
     }
   }
 }
+
+
 
 .btn {
   margin: 20px 0;

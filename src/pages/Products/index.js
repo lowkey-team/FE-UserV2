@@ -89,7 +89,8 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
     <div className={cx("wrapper", 'container')}>
       <div className={cx('row')}>
 
-        <div className={cx('col-md-2')}>
+        {/* Left column */}
+        <div className={cx('col-md-2', 'left_col')}>
           <div className={cx('form-category')}>
             <div className={cx('title-category')}>Danh mục sản phẩm</div>
             <Menu
@@ -105,35 +106,29 @@ function Products({ selectedCategories = [], selectedPrice = null }) {
           </div>
         </div>
 
-        <div className={cx('col-md-10')}>
+        {/* Right column */}
+        <div className={cx('col-md-10', 'right_col')}>
           <div className={cx("banner")}>
             <img
               src="https://madebymaries.com/wp-content/uploads/2021/09/wicker-baskets-6526674_1920.jpg"
               alt="Banner"
             />
           </div>
-    
-    
           <section className={cx("section-saleproduct")}>
             <FormProductSale products={filteredProducts}/>
           </section>
-    
           <div className={cx("line-lane")}></div>
           <FormNewProduct products={filteredProducts}/>
           <div className={cx("line-lane")}></div>
-          
           <section className={cx("section-bestsale")}>
             <FormBestSaleProduct products={filteredProducts}/>
           </section>
           <div className={cx("line-lane")}></div>
-    
           <section className={cx("section-productByCategory")}>
             <FormProductByCategory products={filteredProducts}/>
           </section>
         </div>
-
       </div>
-
       <BackTop/>
     </div>
   );
