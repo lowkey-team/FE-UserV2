@@ -165,9 +165,6 @@ function FormRegister({ onClose }) {
             />
           </div>
 
-          {/* Chọn tỉnh/quận/phường */}
-          {/* Các select dropdown ở đây */}
-
           <div className={cx("form-btn")}>
             <button className={cx("btn-register")} onClick={handleSubmit}>
               Đăng Ký

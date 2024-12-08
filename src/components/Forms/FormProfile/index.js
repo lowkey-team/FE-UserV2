@@ -2,150 +2,108 @@ import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
-import { fecthFindByIdUserAPI, fetchDistrictsByProvinceId, fetchProvincesAPI, fetchWardsByDistrictId } from "~/apis";
-import styles from './FormProfile.module.scss'
+import {
+  fecthFindByIdUserAPI,
+  fetchDistrictsByProvinceId,
+  fetchProvincesAPI,
+  fetchWardsByDistrictId,
+} from "~/apis";
+import styles from "./FormProfile.module.scss";
 
 const cx = classNames.bind(styles);
 
 function FormProfile() {
+  // State for user data
+  const [user, setUser] = useState({});
+  const [loadingUser, setLoadingUser] = useState(true);
 
-    // State for user data
-    const [user, setUser] = useState({});
-    const [loadingUser, setLoadingUser] = useState(true);
+  // State for address data
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
 
-    // State for address data
-    const [provinces, setProvinces] = useState([]);
-    const [districts, setDistricts] = useState([]);
-    const [wards, setWards] = useState([]);
+  // State for selected address values
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedWard, setSelectedWard] = useState("");
 
-    // State for selected address values
-    const [selectedProvince, setSelectedProvince] = useState("");
-    const [selectedDistrict, setSelectedDistrict] = useState("");
-    const [selectedWard, setSelectedWard] = useState("");
+  useEffect(() => {
+    const storedUser = Cookies.get("user")
+      ? JSON.parse(Cookies.get("user"))
+      : null;
+    if (storedUser && storedUser.id) {
+      fecthFindByIdUserAPI(storedUser.id)
+        .then((data) => {
+          setUser(data);
+          // Set initial address values if available
+          setSelectedProvince(data.province || "");
+          setSelectedDistrict(data.district || "");
+          setSelectedWard(data.ward || "");
+        })
+        .catch((error) => console.error("Error fetching user data:", error))
+        .finally(() => setLoadingUser(false));
+    } else {
+      setLoadingUser(false);
+    }
+  }, []);
 
-    useEffect(() => {
-        const storedUser = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
-        if (storedUser && storedUser.id) {
-          fecthFindByIdUserAPI(storedUser.id)
-            .then((data) => {
-              setUser(data);
-              // Set initial address values if available
-              setSelectedProvince(data.province || "");
-              setSelectedDistrict(data.district || "");
-              setSelectedWard(data.ward || "");
-            })
-            .catch((error) => console.error("Error fetching user data:", error))
-            .finally(() => setLoadingUser(false));
-        } else {
-          setLoadingUser(false);
-        }
-      }, []);
+  // Fetch provinces on component mount
+  useEffect(() => {
+    fetchProvincesAPI().then((data) => {
+      setProvinces(data);
+    });
+  }, []);
 
+  // Handle province change and load districts
+  const handleProvinceChange = (e) => {
+    const provinceCode = e.target.value;
+    setSelectedProvince(provinceCode);
+    setSelectedDistrict("");
+    setSelectedWard("");
+    setDistricts([]);
+    setWards([]);
 
-    // Fetch provinces on component mount
-    useEffect(() => {
-        fetchProvincesAPI().then((data) => {
-            setProvinces(data);
-        });
-    }, []);
+    if (provinceCode) {
+      fetchDistrictsByProvinceId(provinceCode).then((data) => {
+        setDistricts(data);
+        console.log("province:", data);
+      });
+    }
+  };
 
-    // Handle province change and load districts
-    const handleProvinceChange = (e) => {
-        const provinceCode = e.target.value;
-        setSelectedProvince(provinceCode);
-        setSelectedDistrict("");
-        setSelectedWard("");
-        setDistricts([]);
-        setWards([]);
+  // Handle district change and load wards
+  const handleDistrictChange = (e) => {
+    const districtCode = e.target.value;
+    setSelectedDistrict(districtCode);
+    setSelectedWard("");
+    setWards([]);
 
-        if (provinceCode) {
-            fetchDistrictsByProvinceId(provinceCode).then((data) => {
-                setDistricts(data);
-                console.log("province:", data);
-            });
-        }
-    };
+    if (districtCode) {
+      fetchWardsByDistrictId(districtCode).then((data) => {
+        setWards(data);
+      });
+    }
+  };
 
-    // Handle district change and load wards
-    const handleDistrictChange = (e) => {
-        const districtCode = e.target.value;
-        setSelectedDistrict(districtCode);
-        setSelectedWard("");
-        setWards([]);
+  return (
+    <div className={cx("content")}>
+      <h2>Thông Tin Cá Nhân</h2>
+      <form className={cx("form")}>
+        <label>Họ và tên:</label>
+        <input type="text" value={user.FullName || ""} />
 
-        if (districtCode) {
-            fetchWardsByDistrictId(districtCode).then((data) => {
-                setWards(data);
-            });
-        }
-    };
+        <label>Số điện thoại:</label>
+        <input type="text" value={user.Phone || ""} />
 
-    return ( 
-        <div className={cx("content")}>
-            <h2>Thông Tin Cá Nhân</h2>
-            <form className={cx("form")}>
-                <label>Họ và tên:</label>
-                <input 
-                    type="text" 
-                    value={user.FullName || ""}
-                />
+        <label>Email:</label>
+        <input type="text" value={user.email || ""} />
 
-                <label>Số điện thoại:</label>
-                <input 
-                    type="text" 
-                    value={user.Phone || ""}
-                />
-
-                <label>Email:</label>
-                <input 
-                    type="text" 
-                    value={user.email || ""}
-                />
-
-                <label>Địa chỉ:</label>
-                <input 
-                    type="text" 
-                    value={user.address || ""}
-                />
-
-                <div className={cx("address-select")}>
-                    <select onChange={handleProvinceChange} value={selectedProvince}>
-                        <option value="">Chọn tỉnh / thành</option>
-                        {provinces.map((province) => (
-                            <option key={province.province_id} value={province.province_id}>
-                                {province.province_name}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        onChange={handleDistrictChange}
-                        value={selectedDistrict}
-                        disabled={!selectedProvince}
-                    >
-                        <option value="">Chọn quận / huyện</option>
-                        {districts.map((district) => (
-                            <option key={district.district_id} value={district.district_id}>
-                                {district.district_name}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        onChange={(e) => setSelectedWard(e.target.value)}
-                        value={selectedWard}
-                        disabled={!selectedDistrict}
-                    >
-                        <option value="">Chọn phường / xã</option>
-                        {wards.map((ward) => (
-                            <option key={ward.ward_id} value={ward.ward_id}>
-                                {ward.ward_name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Thay đổi thông tin</button>
-            </form>
-        </div>
-    );
+        <label>Địa chỉ:</label>
+        <input type="text" value={user.address || ""} />
+        <button type="submit">Thay đổi thông tin</button>
+      </form>
+    </div>
+  );
 }
 
 export default FormProfile;

@@ -5,7 +5,10 @@ import CardProductCart from "~/components/Cards/CardProductCart";
 import icons from "~/assets/icons";
 import ModalPayment from "~/components/Modals/ModalPayment";
 import { Color } from "antd/es/color-picker";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { message, notification, Button } from "antd";
+import { RadiusBottomrightOutlined } from "@ant-design/icons";
+
 import {
   fetchCartByUserIdAPI,
   fetchVoucherByID,
@@ -31,6 +34,7 @@ function Cart() {
   const [voucherCode, setVoucherCode] = useState();
   const [note, setNote] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [api, contextHolder] = notification.useNotification();
 
   const handleVoucherSelect = async (id) => {
     console.log("Voucher được chọn:", id);
@@ -53,7 +57,8 @@ function Cart() {
   const removeSelectedProducts = (selectedProducts) => {
     setProducts((prevProducts) => {
       return prevProducts.filter(
-        (product) => !selectedProducts.some((selected) => selected.id === product.id)
+        (product) =>
+          !selectedProducts.some((selected) => selected.id === product.id)
       );
     });
   };
@@ -80,8 +85,26 @@ function Cart() {
     fetchProducts();
   }, []);
 
+  const openNotification = (placement) => {
+    api.info({
+      message: "Thông báo",
+      description: "Vui lòng chọn ít nhất một sản phẩm để thanh toán.",
+      placement: placement,
+      duration: 0,
+      btn: (
+        <Button type="primary" onClick={() => api.destroy()}>
+          OK
+        </Button>
+      ),
+    });
+  };
+
   // Hàm mở modal
   const handleCheckout = () => {
+    if (selectedProducts.length === 0) {
+      openNotification("bottomRight");
+      return;
+    }
     setIsModalOpen(true);
     console.log("data trước khi gửi:", selectedProducts);
   };
@@ -240,7 +263,9 @@ function Cart() {
             <div className={cx("empty-cart")}>
               <h5>Giỏ hàng của bạn đang trống</h5>
               <img src={icons.emptyCart} alt="empty-cart" />
-              <a href="/productall"><button>Mua sắm ngay</button></a>
+              <a href="/productall">
+                <button>Mua sắm ngay</button>
+              </a>
             </div>
           )}
         </div>
@@ -259,7 +284,7 @@ function Cart() {
               <div className={cx("price-row")}>
                 <p className={cx("total-label")}>Số tiền giảm:</p>
                 <p className={cx("discount-amount")}>
-                  -{formatCurrency(discountAmount)}
+                  {formatCurrency(discountAmount)}
                 </p>
               </div>
 
@@ -320,6 +345,7 @@ function Cart() {
                 onChange={handleNoteChange}
               />
             </div>
+            {contextHolder}
             <button className={cx("checkout-button")} onClick={handleCheckout}>
               THANH TOÁN
             </button>
@@ -334,7 +360,6 @@ function Cart() {
                 voucherCode={voucherCode?.voucherCode || ""}
                 note={note}
                 removeSelectedProducts={removeSelectedProducts}
-
               />
             )}
           </div>
