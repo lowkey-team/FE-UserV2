@@ -44,7 +44,7 @@ function CardOrderDetail({ product, isFeedBack }) {
         Số lượng:<span>{Quantity} sản phẩm</span>
       </div>
       <div className={cx("order-price")}>
-        Tổng tiền
+        Tổng tiền:
         <span>{Amount} vnđ</span>
       </div>
       <div className={cx("order-feedback")}>
