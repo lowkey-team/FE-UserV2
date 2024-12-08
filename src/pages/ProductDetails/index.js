@@ -17,6 +17,7 @@ import { icon } from "@fortawesome/fontawesome-svg-core";
 import icons from "~/assets/icons";
 import CardFeedback from "~/components/Cards/CardFeedback";
 import Cookies from "js-cookie";
+import RecommendProducts from "~/components/Forms/recommendProducts/recommendProducts";
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ function ProductDetails() {
     averageRating: 0,
     ratingCounts: [0, 0, 0, 0, 0],
   });
+
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
@@ -136,7 +138,12 @@ function ProductDetails() {
 
       <section className={cx("section__des")}>
         <div className={cx("row")}>
-          <div className={cx("des-content", vouchers.length === 0 ? "col-md-12" : "col-md-9")}>
+          <div
+            className={cx(
+              "des-content",
+              vouchers.length === 0 ? "col-md-12" : "col-md-9"
+            )}
+          >
             <div className={cx("des-title")}>
               <h3>Mô tả sản phẩm</h3>
               <hr></hr>
@@ -234,6 +241,13 @@ function ProductDetails() {
                     })}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className={cx("row")}>
+              <h3> Gợi ý sản phẩm mua kèm</h3>
+              <div className={cx("Product-Suggestions", "col-md-12")}>
+                <RecommendProducts productId={productId} />
               </div>
             </div>
           </section>
