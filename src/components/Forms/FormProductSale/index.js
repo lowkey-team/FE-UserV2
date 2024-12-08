@@ -73,7 +73,7 @@ function FormProductSale() {
       </div>
 
       <div className={cx("btn-more")}>
-        <Button outline><Link to="/saleproductall">Xe tất cả</Link></Button>
+        <Button outline><Link to="/saleproductall">Xem tất cả</Link></Button>
       </div>
     </div>
   );

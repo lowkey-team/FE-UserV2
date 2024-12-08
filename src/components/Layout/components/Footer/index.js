@@ -70,25 +70,17 @@ function Footer() {
                     <h3 className={cx('company')}>VỀ CHÚNG TÔI</h3>
                     <ul>
                         <a href='/'><li>› Giới thiệu</li></a>
-                        <li>› Giá trị cốt lõi - Tầm nhìn - Sứ mệnh</li>
                         <a href='/product'><li>› Các nhóm sản phẩm</li></a>
-                        <li>› Thành viên Vecom</li>
-                        <li>› Hội viên Hawee</li>
-                        <li>› 5 điểm khác biệt tại Mỹ Nghệ Việt</li>
+                        <a href='/hawee'><li>› Hội viên Hawee</li></a>
+                        <a href='/five-other'><li>› 5 điểm khác biệt tại Mỹ Nghệ Việt</li></a>
                     </ul>
                 </div>
                 <div className={cx('footer-column')}>
                     <h3 className={cx('company')}>CHĂM SÓC KHÁCH HÀNG</h3>
                     <ul>
-                        <li>› Các câu hỏi thường gặp</li>
-                        <li>› Hỗ trợ trực tuyến</li>
-                        <li>› Thời gian giao hàng</li>
-                        <li>› Chính sách thanh toán</li>
-                        <li>› Điều kiện bảo hành</li>
-                        <li>› Vận chuyển và giao nhận</li>
-                        <li>› Nhận xét khách hàng</li>
-                        <li>› Đóng góp ý kiến của khách hàng</li>
-                        <li>› Đổi trả và hoàn tiền</li>
+                        <a href='question'><li>› Các câu hỏi thường gặp</li></a>
+                        <a href='support'><li>› Hỗ trợ trực tuyến</li></a>
+                        <a href='delivery'><li>› Thời gian giao hàng</li></a>
                     </ul>
                 </div>
                 <div className={cx('footer-column')}>
