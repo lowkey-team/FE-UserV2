@@ -64,13 +64,19 @@ function FormRegister({ onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Kiểm tra độ dài mật khẩu
+    if (password.length < 6) {
+      setErrorMessage("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+  
     // Kiểm tra xem mật khẩu có khớp không
     if (password !== confirmPassword) {
       setErrorMessage("Mật khẩu và xác nhận mật khẩu không khớp");
       return;
     }
-
+  
     const formData = {
       FullName: fullName,
       Email: email,
@@ -78,16 +84,16 @@ function FormRegister({ onClose }) {
       Passwords: password,
       address: address,
     };
-
+  
     try {
       const response = await RegisterAPI(formData);
       message.success("Đăng ký thành công!");
       onClose();
     } catch (error) {
-      // console.error("Đăng ký thất bại:", error);
       setErrorMessage("Đăng ký thất bại. Vui lòng thử lại!");
     }
   };
+  
 
   return (
     <div className={cx("form-overlay")} onClick={onClose}>

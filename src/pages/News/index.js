@@ -54,7 +54,7 @@ function News() {
             id: 7,
             title: "Đồ chơi truyền thống: Tuổi thơ qua từng món đồ",
             description: "Đồ chơi truyền thống Việt Nam là một phần ký ức tuổi thơ của nhiều thế hệ, được làm từ các chất liệu tự nhiên như tre, nứa, giấy hay đất sét. Những món đồ chơi như đèn ông sao, tò he, chong chóng, hay trống lắc không chỉ mang đến niềm vui mà còn là biểu tượng của văn hóa dân gian Việt. Qua bàn tay khéo léo của các nghệ nhân, mỗi món đồ chơi đều toát lên sự gần gũi, mộc mạc nhưng đầy sáng tạo. Dù xã hội hiện đại đã mang đến nhiều loại đồ chơi công nghệ, những món đồ truyền thống này vẫn giữ được sức hút riêng, đặc biệt trong các dịp lễ hội như Trung Thu hay Tết Nguyên Đán. Đây không chỉ là cách để trẻ em hiện đại kết nối với văn hóa cội nguồn mà còn là một nét đẹp cần được gìn giữ và phát huy.",
-            image: "https://cdn.tgdd.vn/Files/2022/08/16/1456752/11-mon-do-choi-trung-thu-truyen-thong-viet-nam-202208170002580822.jpg",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzOMspqVv1nGORTD-vZjYzByppcxJ75YgLGA&s",
             date: "20/11/2024",
         },
     ];

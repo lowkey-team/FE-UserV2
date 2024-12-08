@@ -204,18 +204,26 @@ function ProductDetails() {
                     <div className={cx("stars")}>
                       {Array(5)
                         .fill(0)
-                        .map((_, index) => (
-                          <span
-                            key={index}
-                            className={cx("star", {
-                              "half-star":
-                                index + 0.5 < statistics.averageRating,
-                            })}
-                          >
-                            ★
-                          </span>
-                        ))}
+                        .map((_, index) => {
+                          const isFilled = index + 1 <= Math.floor(statistics.averageRating); // Sao đầy
+                          const isHalfFilled =
+                            index < statistics.averageRating && index + 1 > statistics.averageRating; // Sao nửa
+
+                          return (
+                            <span
+                              key={index}
+                              className={cx("star", {
+                                "filled-star": isFilled,
+                                "half-star": isHalfFilled,
+                                "empty-star": !isFilled && !isHalfFilled, // Sao rỗng
+                              })}
+                            >
+                              ★
+                            </span>
+                          );
+                        })}
                     </div>
+
                     <span className={cx("total-reviews")}>
                       {statistics.totalRatings} đánh giá
                     </span>

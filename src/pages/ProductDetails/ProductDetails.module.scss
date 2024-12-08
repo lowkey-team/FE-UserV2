@@ -98,19 +98,29 @@
         font-weight: bold;
       }
 
-      .stars {
-        display: flex;
-        font-size: 4.5rem;
-        color: #f5a623;
-      }
-
-      .half-star {
-        color: #f5a623;
-        position: relative;
+      .star {
+        font-size: 24px;
         display: inline-block;
-        overflow: hidden;
-        width: 1.2em;
+        margin-right: 4px;
+        color: #ccc; // Mặc định: màu xám trắng
+      
+        &.filled-star {
+          color: #ffc107; // Màu vàng cho sao đầy
+        }
+      
+        &.half-star {
+          position: relative;
+          display: inline-block;
+          background: linear-gradient(to right, #ffc107 50%, #ccc 50%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      
+        &.empty-star {
+          color: #ccc; // Màu xám trắng cho sao rỗng
+        }
       }
+      
 
       .total-reviews {
         font-size: 2.2rem;
