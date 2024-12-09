@@ -345,6 +345,30 @@ function Cart() {
                 onChange={handleNoteChange}
               />
             </div>
+
+            {/* Phần thông tin giao hành */}
+
+            <div className={cx("info-delive")}>
+              <div className={cx("info-delive-title")}>Thông tin đặt hàng</div>
+              <div className={cx("delive__input")}>
+                <label>Họ tên</label>
+                <input placeholder="Họ tên người nhận hàng" />
+              </div>
+
+              <div className={cx("delive__input")}>
+                <label>Số điện thoại</label>
+                <input placeholder="Họ tên người nhận hàng" />
+              </div>
+              <div className={cx("delive__input")}>
+                <label>Phương thức thanh toán</label>
+                <select className="payment-method">
+                  <option value="cod">Thanh toán khi nhận hàng</option>
+                  <option value="momo">Momo</option>
+                  <option value="vnpay">VNPAY</option>
+                  <option value="credit-card">Thẻ tín dụng</option>
+                </select>
+              </div>
+            </div>
             {contextHolder}
             <button className={cx("checkout-button")} onClick={handleCheckout}>
               THANH TOÁN
