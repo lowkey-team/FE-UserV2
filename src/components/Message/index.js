@@ -3,7 +3,7 @@ import { message } from "antd";
 
 const MessageNotification = (props, ref) => {
   const [messageApi, contextHolder] = message.useMessage({
-    maxCount: 2,
+    maxCount: 1,
   });
 
   useImperativeHandle(ref, () => ({

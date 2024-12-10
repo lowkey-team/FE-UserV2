@@ -7,12 +7,10 @@ export const fecthPorductAPI = async () => {
   return response.data;
 };
 
-
 export const fecthAllPorductAPI = async () => {
   const response = await axios.get(`${API_ROOT}/v1/product/getAllProductPage`);
   return response.data;
 };
-
 
 // fetch product by id
 export const fetchProductByIdAPI = async (id) => {

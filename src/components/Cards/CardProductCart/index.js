@@ -116,7 +116,7 @@ function CardProductCart({
       } catch (error) {
         console.error("Lỗi khi cập nhật số lượng:", error);
       }
-    }, 1000);
+    }, 10);
   };
 
   const handleIncrease = () => {

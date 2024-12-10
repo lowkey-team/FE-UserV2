@@ -6,18 +6,25 @@ import icons from "~/assets/icons";
 import ModalPayment from "~/components/Modals/ModalPayment";
 import { Color } from "antd/es/color-picker";
 import { Link } from "react-router-dom";
-import { message, notification, Button } from "antd";
+import { notification, Button, Select, message } from "antd";
 import { RadiusBottomrightOutlined } from "@ant-design/icons";
-
+import { calculateShipment } from "~/apis/cart";
 import {
+  addInvoiceAPI,
   fetchCartByUserIdAPI,
   fetchVoucherByID,
   fetchVoucherByIdAPI,
+  PaymentMoMoAPI,
+  PaymentStatusMoMoAPI,
+  updateInvoices,
 } from "~/apis";
 import { deleteCartByIdAPI } from "~/apis/cart";
 import Cookies from "js-cookie";
 import { formatCurrency } from "~/utils/format";
 import MenuVoucherSaved from "~/components/MenuVoucherSaved";
+import EditAddressModal from "~/components/Cards/EditAddressModal";
+import { formatDateToMySQL } from "~/utils/format";
+import { Option } from "antd/es/mentions";
 
 const cx = classNames.bind(styles);
 
@@ -32,15 +39,83 @@ function Cart() {
   const [menuVoucherVisible, setMenuVoucherVisible] = useState(false);
   const [selectedVoucherId, setSelectedVoucherId] = useState(null);
   const [voucherCode, setVoucherCode] = useState();
+  const [voucherCodeName, setVoucherCodeName] = useState();
   const [note, setNote] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [api, contextHolder] = notification.useNotification();
+  const [isEditAddressModalOpen, setIsEditAddressModalOpen] = useState(false);
+  const [shipmentFee, setShipmentFee] = useState(null);
+  const [selectdCart, setSelectedCart] = useState("");
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod");
+
+  const handlePaymentMethodChange = (value) => {
+    setSelectedPaymentMethod(value);
+  };
+
+  const ResetPrice = () => {
+    setTotalPrice(0);
+    setSelectedProducts([]);
+    setDiscountAmount(0);
+    setMenuVoucherVisible(false);
+    setSelectedVoucherId(null);
+    setVoucherCode("");
+    setVoucherCodeName("");
+    setNote("");
+    setShipmentFee(null);
+    setSelectedCart("");
+  };
+
+  const [address, setAddress] = useState({
+    name: "",
+    phone: "",
+    addressLine: "",
+  });
+
+  const [locationCodes, setLocationCodes] = useState({
+    districtCode: null,
+    wardCode: null,
+  });
+  useEffect(() => {
+    console.log("data id cart:", selectedProducts);
+    const cartIdsObject = {
+      cartIds: selectedProducts.map((cart) => cart.id),
+    };
+    console.log("data id cart:", cartIdsObject);
+    setSelectedCart(cartIdsObject);
+  }, []);
+
+  const handleCalculateShipment = async () => {
+    const formData = {
+      to_district_id: locationCodes.districtCode,
+      to_ward_code: locationCodes.wardCode,
+      service_type_id: 2,
+      height: 10,
+      weight: 60,
+      length: 30,
+      width: 30,
+    };
+
+    try {
+      const result = await calculateShipment(formData);
+      setShipmentFee(result.total);
+    } catch (error) {
+      console.error("Error calculating shipment:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (locationCodes.districtCode && locationCodes.wardCode) {
+      handleCalculateShipment();
+    }
+  }, [locationCodes]);
 
   const handleVoucherSelect = async (id) => {
     console.log("Voucher được chọn:", id);
     setSelectedVoucherId(id);
     const voucherData = await fetchVoucherByIdAPI(id);
     setVoucherCode(voucherData);
+    setVoucherCodeName(voucherData.voucherCode);
     console.log("Dữ liệu voucher:", voucherData);
 
     const discountAmount =
@@ -99,17 +174,6 @@ function Cart() {
     });
   };
 
-  // Hàm mở modal
-  const handleCheckout = () => {
-    if (selectedProducts.length === 0) {
-      openNotification("bottomRight");
-      return;
-    }
-    setIsModalOpen(true);
-    console.log("data trước khi gửi:", selectedProducts);
-  };
-
-  // Hàm đóng modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -119,6 +183,14 @@ function Cart() {
         product.id === id ? { ...product, price: newPrice } : product
       )
     );
+  };
+
+  const handleEditAddressModalOpen = () => {
+    setIsEditAddressModalOpen(true);
+  };
+
+  const handleEditAddressModalClose = () => {
+    setIsEditAddressModalOpen(false);
   };
 
   const handleSelectProduct = (
@@ -228,6 +300,140 @@ function Cart() {
     setNote(newNote);
   };
 
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setAddress((prevAddress) => ({
+      ...prevAddress,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveAddress = () => {
+    console.log("Địa chỉ đã lưu:", address);
+    setIsEditAddressModalOpen(false);
+  };
+
+  const getOrderData = (paymentStatus) => {
+    return {
+      userId: storedUser?.id || null,
+      employeerId: null,
+      totalAmount: totalSelectedPrice,
+      discountAmount: discountAmount,
+      finalAmount: totalPrice + shipmentFee,
+      shipmentFee: shipmentFee,
+      voucherCode: voucherCodeName,
+      paymentStatus: paymentStatus,
+      paymentMethod: selectedPaymentMethod,
+      orderStatus: "Đang xử lý",
+      note: note,
+      invoiceDate: formatDateToMySQL(new Date()),
+      receivedDate: formatDateToMySQL(
+        new Date(Date.now() + 24 * 60 * 60 * 1000)
+      ),
+      shippingAddress: address.addressLine,
+      phoneNumber: address.phone,
+      customerName: address.name,
+      items: selectedProducts.map((product) => ({
+        productVariationId: product.id_variation,
+        unitPrice: product.reducedPrice,
+        amount: product.price,
+        quantity: product.quantity,
+      })),
+    };
+  };
+
+  const handleCheckoutCOD = async () => {
+    const orderData = getOrderData("Chưa thanh toán");
+    console.log("orderData:", orderData);
+    try {
+      await addInvoiceAPI(orderData);
+      notification.success({
+        message: "Đơn hàng đã được hoàn tất!",
+        description: "Bạn đã hoàn tất đơn hàng và chờ xử lý.",
+      });
+      const idCart = selectedProducts.map((item) => item.id);
+      console.log("data xoa", idCart);
+      const fromData = {
+        cartIds: idCart,
+      };
+      await deleteCartByIdAPI(fromData);
+      console.log("xoa", selectedProducts);
+      removeSelectedProducts(selectedProducts);
+      ResetPrice();
+    } catch (error) {
+      notification.error({
+        message: "Có lỗi xảy ra khi hoàn tất đơn hàng",
+        description: "Vui lòng thử lại sau.",
+      });
+    }
+  };
+  const handleCheckoutMomo = async () => {
+    console.log("Thanh toán Momo");
+    const orderData = getOrderData("Đang xử lý");
+
+    try {
+      const invoiceResponse = await addInvoiceAPI(orderData);
+      const invoiceId = invoiceResponse.data.invoiceId;
+      alert("Đơn hàng đã tạo thành công. Vui lòng thực hiện thanh toán");
+      const idCart = selectedProducts.map((item) => item.id);
+      console.log("data xoa", idCart);
+      const fromData = {
+        cartIds: idCart,
+      };
+      await deleteCartByIdAPI(fromData);
+      ResetPrice();
+      removeSelectedProducts(selectedProducts);
+      const paymentData = await PaymentMoMoAPI(orderData);
+
+      if (paymentData && paymentData.payUrl) {
+        const orderId = paymentData.orderId;
+
+        const paymentWindow = window.open(paymentData.payUrl, "_blank");
+
+        const checkPaymentStatusInterval = setInterval(async () => {
+          try {
+            await PaymentStatusMoMoAPI(orderId);
+
+            const updatedData = {
+              invoiceId: invoiceId,
+              paymentStatus: "Đã thanh toán",
+              orderStatus: "Đã hoàn thành",
+            };
+
+            await updateInvoices(updatedData);
+            alert("Đơn hàng đã thanh toán thành công!");
+            clearInterval(checkPaymentStatusInterval);
+            paymentWindow.close();
+          } catch (error) {
+            console.error("Lỗi khi kiểm tra trạng thái thanh toán:", error);
+          }
+        }, 5000);
+      } else {
+        console.error("Không có link thanh toán trong phản hồi:", paymentData);
+        alert("Không thể tạo link thanh toán, vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Có lỗi xảy ra khi thanh toán MoMo:", error);
+      alert("Có lỗi xảy ra khi thanh toán MoMo. Vui lòng thử lại.");
+    }
+  };
+  const handleCheckout = () => {
+    switch (selectedPaymentMethod) {
+      case "cod":
+        handleCheckoutCOD();
+        break;
+      case "momo":
+        handleCheckoutMomo();
+        break;
+      case "vnpay":
+        break;
+      case "credit-card":
+        break;
+      default:
+        message.error("Phương thức thanh toán không hợp lệ");
+    }
+  };
+
   return (
     <div className={cx("wrapper", "container")}>
       <div className={cx("row")}>
@@ -287,11 +493,19 @@ function Cart() {
                   {formatCurrency(discountAmount)}
                 </p>
               </div>
+              <div className={cx("price-row")}>
+                <p className={cx("total-label")}>Phí vận chuyển:</p>
+                <p className={cx("discount-amount")}>
+                  {formatCurrency(totalSelectedPrice > 0 ? shipmentFee : 0)}
+                </p>
+              </div>
 
               <div className={cx("price-row")}>
-                <p className={cx("total-label")}>Tổng tiền sau khi giảm:</p>
+                <p className={cx("total-label")}>Tổng tiền thanh toán:</p>
                 <p className={cx("discounted-price")}>
-                  {formatCurrency(totalPrice)}
+                  {formatCurrency(
+                    totalSelectedPrice > 0 ? totalPrice + shipmentFee : 0
+                  )}
                 </p>
               </div>
             </div>
@@ -346,29 +560,60 @@ function Cart() {
               />
             </div>
 
-            {/* Phần thông tin giao hành */}
-
             <div className={cx("info-delive")}>
-              <div className={cx("info-delive-title")}>Thông tin đặt hàng</div>
-              <div className={cx("delive__input")}>
-                <label>Họ tên</label>
-                <input placeholder="Họ tên người nhận hàng" />
-              </div>
-
-              <div className={cx("delive__input")}>
-                <label>Số điện thoại</label>
-                <input placeholder="Họ tên người nhận hàng" />
-              </div>
               <div className={cx("delive__input")}>
                 <label>Phương thức thanh toán</label>
-                <select className="payment-method">
-                  <option value="cod">Thanh toán khi nhận hàng</option>
-                  <option value="momo">Momo</option>
-                  <option value="vnpay">VNPAY</option>
-                  <option value="credit-card">Thẻ tín dụng</option>
-                </select>
+                <Select
+                  className="payment-method"
+                  value={selectedPaymentMethod}
+                  onChange={handlePaymentMethodChange}
+                  style={{ width: "100%" }}
+                >
+                  <Option value="cod">Thanh toán khi nhận hàng</Option>
+                  <Option value="momo">Momo</Option>
+                  <Option value="vnpay">VNPAY</Option>
+                  <Option value="credit-card">Thẻ tín dụng</Option>
+                </Select>
               </div>
             </div>
+
+            <div>
+              <h2>Thông tin địa chỉ</h2>
+              <p>
+                <strong>Họ tên:</strong> {address.name || "Chưa cập nhật"}
+              </p>
+              <p>
+                <strong>Số điện thoại:</strong>{" "}
+                {address.phone || "Chưa cập nhật"}
+              </p>
+              <p>
+                <strong>Địa chỉ:</strong>{" "}
+                {address.addressLine || "Chưa cập nhật"}
+              </p>
+
+              <p>
+                <strong>id huyện:</strong>{" "}
+                {locationCodes.districtCode || "Chưa cập nhật"}
+              </p>
+              <p>
+                <strong>id xã</strong>{" "}
+                {locationCodes.wardCode || "Chưa cập nhật"}
+              </p>
+            </div>
+            <Button
+              className={cx("btn-update-address")}
+              onClick={handleEditAddressModalOpen}
+            >
+              Cập nhật địa chỉ
+            </Button>
+            <EditAddressModal
+              isVisible={isEditAddressModalOpen}
+              onClose={handleEditAddressModalClose}
+              handleSave={handleSaveAddress}
+              setAddress={setAddress}
+              setLocationCodes={setLocationCodes}
+            />
+
             {contextHolder}
             <button className={cx("checkout-button")} onClick={handleCheckout}>
               THANH TOÁN
