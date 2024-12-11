@@ -47,7 +47,7 @@
         align-self: flex-end;
       }
 
-      .discount-amount{
+      .discount-amount {
         font-size: 14px;
         color: #000000;
       }
@@ -83,7 +83,7 @@
     }
 
     .note-section {
-      margin-bottom: 15px;
+      margin-bottom: 5px;
 
       .note-label {
         font-size: 14px;
@@ -122,31 +122,51 @@
   }
 }
 
-.empty-cart{
+.empty-cart {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  h5{
-      font-size: 2.0rem;
+  h5 {
+    font-size: 2rem;
   }
 
-  img{
+  img {
     width: 300px;
     height: 300px;
   }
 
-  button{
+  button {
     padding: 5px 20px;
     font-size: 1.6rem;
     color: #fff;
     background-color: var(--primaryBold);
-    transition: all .1s linear;
+    transition: all 0.1s linear;
 
-    &:hover{
+    &:hover {
       background-color: #fb5f8b;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     }
+  }
+}
+
+.payment_method-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+.address {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  .address_info-label {
+  }
+  .address_info-update {
+    font-size: 10px;
+    color: rgb(10, 72, 144);
+    cursor: pointer;
   }
 }

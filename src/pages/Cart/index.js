@@ -6,7 +6,7 @@ import icons from "~/assets/icons";
 import ModalPayment from "~/components/Modals/ModalPayment";
 import { Color } from "antd/es/color-picker";
 import { Link } from "react-router-dom";
-import { notification, Button, Select, message } from "antd";
+import { notification, Button, Select, message, Checkbox } from "antd";
 import { RadiusBottomrightOutlined } from "@ant-design/icons";
 import { calculateShipment } from "~/apis/cart";
 import {
@@ -25,6 +25,13 @@ import MenuVoucherSaved from "~/components/MenuVoucherSaved";
 import EditAddressModal from "~/components/Cards/EditAddressModal";
 import { formatDateToMySQL } from "~/utils/format";
 import { Option } from "antd/es/mentions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCreditCard,
+  faTruckFast,
+  faMobileAlt,
+  faBarcode,
+} from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
@@ -46,6 +53,7 @@ function Cart() {
   const [isEditAddressModalOpen, setIsEditAddressModalOpen] = useState(false);
   const [shipmentFee, setShipmentFee] = useState(null);
   const [selectdCart, setSelectedCart] = useState("");
+  const [selectAll, setSelectAll] = useState(false);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod");
 
@@ -84,6 +92,18 @@ function Cart() {
     console.log("data id cart:", cartIdsObject);
     setSelectedCart(cartIdsObject);
   }, []);
+
+  // Hàm xử lý tích chọn tất cả
+  const handleSelectAll = (checked) => {
+    setSelectAll(checked);
+    if (checked) {
+      // Nếu tích chọn tất cả, thêm toàn bộ sản phẩm vào danh sách được chọn
+      setSelectedProducts(cartItems.map((item) => item.id));
+    } else {
+      // Nếu bỏ tích chọn tất cả, xóa toàn bộ danh sách sản phẩm được chọn
+      setSelectedProducts([]);
+    }
+  };
 
   const handleCalculateShipment = async () => {
     const formData = {
@@ -437,12 +457,19 @@ function Cart() {
   return (
     <div className={cx("wrapper", "container")}>
       <div className={cx("row")}>
+        <Checkbox
+          checked={selectAll}
+          onChange={(e) => handleSelectAll(e.target.checked)}
+        >
+          Chọn tất cả
+        </Checkbox>
         <div className={cx("col-md-8", "product-list")}>
           {loading ? (
             <p>Loading...</p>
           ) : products && products.length > 0 ? (
             products.map((products) => (
               <CardProductCart
+                setSelectAll={setSelectAll}
                 key={products.ID_ProductVariation}
                 id={products.id}
                 id_variation={products.ID_ProductVariation}
@@ -562,23 +589,61 @@ function Cart() {
 
             <div className={cx("info-delive")}>
               <div className={cx("delive__input")}>
-                <label>Phương thức thanh toán</label>
+                <label className={cx("payment_method-label")}>
+                  Phương thức thanh toán:
+                </label>
                 <Select
                   className="payment-method"
                   value={selectedPaymentMethod}
                   onChange={handlePaymentMethodChange}
                   style={{ width: "100%" }}
                 >
-                  <Option value="cod">Thanh toán khi nhận hàng</Option>
-                  <Option value="momo">Momo</Option>
-                  <Option value="vnpay">VNPAY</Option>
-                  <Option value="credit-card">Thẻ tín dụng</Option>
+                  <Option value="cod">
+                    <FontAwesomeIcon icon={faTruckFast} />
+                    Thanh toán khi nhận hàng
+                  </Option>
+                  <Option value="momo">
+                    {" "}
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnV4cUM7jBauINof35Yn_unOz976Iz5okV8A&s"
+                      alt="Momo"
+                      style={{ width: 20, marginRight: 8 }}
+                    />
+                    Momo
+                  </Option>
+                  <Option value="vnpay">
+                    {" "}
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp1v7T287-ikP1m7dEUbs2n1SbbLEqkMd1ZA&s"
+                      alt="Momo"
+                      style={{ width: 20, marginRight: 8 }}
+                    />
+                    VNPAY
+                  </Option>
+                  <Option value="credit-card">
+                    <FontAwesomeIcon
+                      icon={faCreditCard}
+                      style={{ marginRight: 8 }}
+                    />
+                    Thẻ tín dụng
+                  </Option>
                 </Select>
               </div>
             </div>
 
             <div>
-              <h2>Thông tin địa chỉ</h2>
+              <div className={cx("address")}>
+                <div className={cx("address_info-label")}>
+                  Thông tin giao hàng:
+                </div>
+                <div
+                  className={cx("address_info-update")}
+                  onClick={handleEditAddressModalOpen}
+                >
+                  Cập nhật thông tin giao hàng
+                </div>
+              </div>
+
               <p>
                 <strong>Họ tên:</strong> {address.name || "Chưa cập nhật"}
               </p>
@@ -591,21 +656,16 @@ function Cart() {
                 {address.addressLine || "Chưa cập nhật"}
               </p>
 
-              <p>
+              {/* <p>
                 <strong>id huyện:</strong>{" "}
                 {locationCodes.districtCode || "Chưa cập nhật"}
               </p>
               <p>
                 <strong>id xã</strong>{" "}
                 {locationCodes.wardCode || "Chưa cập nhật"}
-              </p>
+              </p> */}
             </div>
-            <Button
-              className={cx("btn-update-address")}
-              onClick={handleEditAddressModalOpen}
-            >
-              Cập nhật địa chỉ
-            </Button>
+
             <EditAddressModal
               isVisible={isEditAddressModalOpen}
               onClose={handleEditAddressModalClose}

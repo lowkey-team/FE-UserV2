@@ -28,6 +28,7 @@ function CardProductCart({
   isDelete,
   onSelectProduct,
   updateSelectedProduct,
+  setSelectAll,
 }) {
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
   const [isVisible, setIsVisible] = useState(true);
@@ -59,9 +60,11 @@ function CardProductCart({
       stock,
       totalPrice,
       isDelete,
+      setSelectAll,
     });
 
     setIsSelected(e.target.checked);
+    setSelectAll(false);
     onSelectProduct(
       id,
       e.target.checked,
