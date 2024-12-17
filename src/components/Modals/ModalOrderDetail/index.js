@@ -11,6 +11,7 @@ const { confirm } = Modal;
 
 function ModalOrderDetail({ id }) {
   const [invoiceDetails, setInvoiceDetails] = useState(null);
+  console.log("id trong ModalOrderDetail:", id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +95,7 @@ function ModalOrderDetail({ id }) {
             </div>
             <div className={cx("detail-row")}>
               {"    "}
-              <label>    - Ngày nhận dự kiến: </label>
+              <label> - Ngày nhận dự kiến: </label>
               <span>{invoiceDetails.receivedDate}</span>{" "}
             </div>
           </div>
@@ -131,6 +132,7 @@ function ModalOrderDetail({ id }) {
               invoiceDetails.invoice_details.map((product, index) => (
                 <CardOrderDetail
                   key={index}
+                  invoiceID={id}
                   product={product}
                   isFeedBack={
                     invoiceDetails.orderStatus === "Được giao" ? true : false

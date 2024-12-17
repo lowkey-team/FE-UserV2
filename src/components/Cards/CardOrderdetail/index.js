@@ -28,8 +28,8 @@ function CardOrderDetail({ product, isFeedBack, invoiceID }) {
     ID_productVariation,
   } = product;
 
-  console.log("data invoice du lieu vao model con", product);
-
+  // console.log("data invoice du lieu vao model con", product);
+  console.log("invoiceID in CardOrderDetail:", invoiceID);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("product-img")}>
@@ -71,8 +71,8 @@ function CardOrderDetail({ product, isFeedBack, invoiceID }) {
             <ModalExchange
               visible={isModalExchangeVisible}
               onCancel={handleHideModalExchange}
-              invoiceID={invoiceID}
-              id_ProductVariation={ID_productVariation}
+              invoiceID={id}
+              // id_ProductVariation={ID_productVariation}
               // onConfirm={handleConfirm}
             />
           </>

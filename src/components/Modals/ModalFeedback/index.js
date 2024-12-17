@@ -37,6 +37,7 @@ const ModalFeedback = ({ id_invoiceDetail, onClose }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
 
+  console.log('id_invoiceDetail trong ModalFeedback: ', id_invoiceDetail);
   const handleImageChange = (info) => {
     if (info.file.status === "uploading") {
       setLoading(true);

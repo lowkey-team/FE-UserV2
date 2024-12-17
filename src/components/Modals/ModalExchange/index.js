@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ModalExchange.module.scss";
 import Cookies from "js-cookie";
-import { exchangeGoodsAPI } from "~/apis/suggest";
-import { UploadOutlined } from "@ant-design/icons"; // Import Upload icon
+import { UploadOutlined } from "@ant-design/icons";
+import { createReturnAPI } from "~/apis/returnDetail";
 
 const cx = classNames.bind(styles);
 
@@ -16,38 +16,50 @@ function ModalExchange({
   invoiceID,
   id_ProductVariation,
 }) {
-  // State to store reason, quantity, and image list
   const [reason, setReason] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [fileList, setFileList] = useState([]);
 
-  // Retrieve the user data from cookies (if available)
   const storedUser = Cookies.get("user")
     ? JSON.parse(Cookies.get("user"))
     : null;
 
-  // Handler for Confirm button
+  console.log("id đơn hàng: ", invoiceID);
   const handleConfirm = async () => {
-    // Validate the input
-    if (!reason || !quantity) {
-      alert("Vui lòng nhập đầy đủ lý do và số lượng.");
+    if (!reason || !quantity || !phoneNumber) {
+      message.error("Vui lòng nhập đầy đủ lý do, số lượng, và số điện thoại.");
       return;
     }
 
-    // Ensure the user data is available
     if (!storedUser) {
-      alert("Vui lòng đăng nhập để thực hiện yêu cầu.");
+      message.error("Vui lòng đăng nhập để thực hiện yêu cầu.");
       return;
     }
 
-    // Process form submission (including image upload if needed)
-    // For now, just log the data
-    console.log("Reason:", reason);
-    console.log("Quantity:", quantity);
-    console.log("Images:", fileList);
+    const formData = new FormData();
+    formData.append("ID_invoiceDetail", invoiceID);
+    formData.append("returnQuantity", quantity);
+    formData.append("reason", reason);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("ID_User", storedUser.id);
+
+    fileList.forEach((file) => {
+      formData.append("image", file.originFileObj);
+    });
+    console.log("formData:", formData);
+
+    try {
+      const response = await createReturnAPI(formData);
+      message.success("Tạo đơn đổi hàng thành công!");
+      console.log("Response:", response);
+      onCancel();
+    } catch (error) {
+      console.error("Error creating return order:", error);
+      message.error("Không thể tạo đơn đổi hàng. Vui lòng thử lại.");
+    }
   };
 
-  // Function to handle file upload (you can customize the behavior here)
   const handleFileChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
@@ -55,7 +67,7 @@ function ModalExchange({
   const beforeUpload = (file) => {
     const isImage = file.type.startsWith("image/");
     if (!isImage) {
-      message.error("You can only upload image files!");
+      message.error("Bạn chỉ được tải lên file hình ảnh!");
     }
     return isImage;
   };
@@ -70,11 +82,8 @@ function ModalExchange({
     >
       <div className={cx("modal-content")}>
         <div className={cx("input-group")}>
-          <label htmlFor="reason" className={cx("label")}>
-            Lý do đổi hàng
-          </label>
+          <label className={cx("label")}>Lý do đổi hàng</label>
           <Input.TextArea
-            id="reason"
             rows={4}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -83,11 +92,8 @@ function ModalExchange({
         </div>
 
         <div className={cx("input-group")}>
-          <label htmlFor="quantity" className={cx("label")}>
-            Số lượng
-          </label>
+          <label className={cx("label")}>Số lượng</label>
           <Input
-            id="quantity"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
@@ -95,20 +101,25 @@ function ModalExchange({
           />
         </div>
 
-        {/* Image Upload Section */}
         <div className={cx("input-group")}>
-          <label htmlFor="image" className={cx("label")}>
-            Chọn hình ảnh
-          </label>
+          <label className={cx("label")}>Số điện thoại liên lạc</label>
+          <Input
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Nhập số điện thoại"
+          />
+        </div>
+
+        <div className={cx("input-group")}>
+          <label className={cx("label")}>Chọn hình ảnh</label>
           <Upload
-            action="/upload"  // Your upload endpoint
             listType="picture-card"
             fileList={fileList}
             onChange={handleFileChange}
             beforeUpload={beforeUpload}
-            maxCount={3}  // You can limit the number of images
+            maxCount={1} //đổi số lượng hình ảnh ở đây
           >
-            {fileList.length < 3 && "+ Chọn hình ảnh"}
+            {fileList.length < 1 && "+ Chọn hình ảnh"}
           </Upload>
         </div>
 
