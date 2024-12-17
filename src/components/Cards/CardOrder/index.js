@@ -40,7 +40,7 @@ function CardOrder({ orderData }) {
         onCancel={handleCancel}
         footer={null}
         className={cx("modal-detailOrder")}
-        width={900}
+        width={1000}
       >
         <ModalOrderDetail id={orderData.invoice_id} />
       </Modal>

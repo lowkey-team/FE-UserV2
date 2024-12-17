@@ -94,16 +94,19 @@ const EditAddressModal = ({
       visible={isVisible}
       onCancel={onClose}
       footer={null}
+      width={800}
     >
       <Form
         form={form}
         onFinish={onFinish}
-        initialValues={{ name: "", phone: "", address: "" }} // Dữ liệu mặc định
+        initialValues={{ name: "", phone: "", address: "" }}
       >
         <Form.Item
           label="Họ tên"
           name="name"
           rules={[{ required: true, message: "Vui lòng nhập họ tên!" }]}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
         >
           <Input placeholder="Họ tên người nhận hàng" />
         </Form.Item>
@@ -112,6 +115,8 @@ const EditAddressModal = ({
           label="Số điện thoại"
           name="phone"
           rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
         >
           <Input placeholder="Số điện thoại" />
         </Form.Item>
@@ -120,11 +125,19 @@ const EditAddressModal = ({
           label="Địa chỉ"
           name="address"
           rules={[{ required: true, message: "Vui lòng nhập địa chỉ!" }]}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
         >
           <Input placeholder="Địa chỉ nhận hàng" />
         </Form.Item>
 
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "20px",
+          }}
+        >
           <Select
             placeholder="Chọn tỉnh thành"
             value={selectedProvince}
@@ -174,7 +187,12 @@ const EditAddressModal = ({
         </div>
 
         <div className="modal-footer">
-          <Button onClick={onClose}>Hủy</Button>
+          <Button
+            onClick={onClose}
+            style={{ marginRight: "20px", color: "red" }}
+          >
+            Hủy
+          </Button>
           <Button type="primary" htmlType="submit">
             Lưu thay đổi
           </Button>

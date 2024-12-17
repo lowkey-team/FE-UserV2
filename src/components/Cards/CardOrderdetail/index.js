@@ -4,11 +4,17 @@ import { Button, Modal } from "antd";
 import styles from "./CardOrderDetail.module.scss";
 import { useState } from "react";
 import ModalFeedback from "../../Modals/ModalFeedback";
+import ModalExchange from "~/components/Modals/ModalExchange";
 
 const cx = classNames.bind(styles);
 
-function CardOrderDetail({ product, isFeedBack }) {
+function CardOrderDetail({ product, isFeedBack, invoiceID }) {
   const [modalFeedback, setModalFeedback] = useState(false);
+
+  const [isModalExchangeVisible, setisModalExchangeVisible] = useState(false);
+
+  const handleShowModalExchange = () => setisModalExchangeVisible(true);
+  const handleHideModalExchange = () => setisModalExchangeVisible(false);
 
   const {
     id,
@@ -49,12 +55,27 @@ function CardOrderDetail({ product, isFeedBack }) {
       </div>
       <div className={cx("order-feedback")}>
         {isFeedBack ? (
-          <Button
-            className={cx("btn-feedback")}
-            onClick={() => setModalFeedback(true)}
-          >
-            Đánh giá
-          </Button>
+          <>
+            <Button
+              className={cx("btn-feedback")}
+              onClick={() => setModalFeedback(true)}
+            >
+              Đánh giá
+            </Button>
+            <Button
+              className={cx("btn-return")}
+              onClick={handleShowModalExchange}
+            >
+              Đổi hàng
+            </Button>
+            <ModalExchange
+              visible={isModalExchangeVisible}
+              onCancel={handleHideModalExchange}
+              invoiceID={invoiceID}
+              id_ProductVariation={ID_productVariation}
+              // onConfirm={handleConfirm}
+            />
+          </>
         ) : (
           <></>
         )}

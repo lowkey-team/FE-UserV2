@@ -48,42 +48,42 @@ function FormProfile() {
   }, []);
 
   // Fetch provinces on component mount
-  useEffect(() => {
-    fetchProvincesAPI().then((data) => {
-      setProvinces(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchProvincesAPI().then((data) => {
+  //     setProvinces(data);
+  //   });
+  // }, []);
 
   // Handle province change and load districts
-  const handleProvinceChange = (e) => {
-    const provinceCode = e.target.value;
-    setSelectedProvince(provinceCode);
-    setSelectedDistrict("");
-    setSelectedWard("");
-    setDistricts([]);
-    setWards([]);
+  // const handleProvinceChange = (e) => {
+  //   const provinceCode = e.target.value;
+  //   setSelectedProvince(provinceCode);
+  //   setSelectedDistrict("");
+  //   setSelectedWard("");
+  //   setDistricts([]);
+  //   setWards([]);
 
-    if (provinceCode) {
-      fetchDistrictsByProvinceId(provinceCode).then((data) => {
-        setDistricts(data);
-        console.log("province:", data);
-      });
-    }
-  };
+  //   if (provinceCode) {
+  //     fetchDistrictsByProvinceId(provinceCode).then((data) => {
+  //       setDistricts(data);
+  //       console.log("province:", data);
+  //     });
+  //   }
+  // };
 
   // Handle district change and load wards
-  const handleDistrictChange = (e) => {
-    const districtCode = e.target.value;
-    setSelectedDistrict(districtCode);
-    setSelectedWard("");
-    setWards([]);
+  // const handleDistrictChange = (e) => {
+  //   const districtCode = e.target.value;
+  //   setSelectedDistrict(districtCode);
+  //   setSelectedWard("");
+  //   setWards([]);
 
-    if (districtCode) {
-      fetchWardsByDistrictId(districtCode).then((data) => {
-        setWards(data);
-      });
-    }
-  };
+  //   if (districtCode) {
+  //     fetchWardsByDistrictId(districtCode).then((data) => {
+  //       setWards(data);
+  //     });
+  //   }
+  // };
 
   return (
     <div className={cx("content")}>

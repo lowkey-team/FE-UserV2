@@ -84,7 +84,7 @@ function ModalOrderDetail({ id }) {
             <label>Mã đơn hàng: </label>
             <span>{invoiceDetails.invoice_id}</span>
             {"    "}
-            <label>trình trạng: </label>
+            <label> - tình trạng: </label>
             <span>{invoiceDetails.orderStatus}</span>
           </div>
           <div className={cx("order-date")}>
@@ -93,7 +93,8 @@ function ModalOrderDetail({ id }) {
               <span>{invoiceDetails.createdAt}</span>{" "}
             </div>
             <div className={cx("detail-row")}>
-              <label>- Ngày nhận dự kiến: </label>
+              {"    "}
+              <label>    - Ngày nhận dự kiến: </label>
               <span>{invoiceDetails.receivedDate}</span>{" "}
             </div>
           </div>

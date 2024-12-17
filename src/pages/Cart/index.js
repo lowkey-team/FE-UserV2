@@ -31,6 +31,7 @@ import {
   faTruckFast,
   faMobileAlt,
   faBarcode,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
@@ -640,21 +641,23 @@ function Cart() {
                   className={cx("address_info-update")}
                   onClick={handleEditAddressModalOpen}
                 >
-                  Cập nhật thông tin giao hàng
+                  Cập nhật thông tin <FontAwesomeIcon icon={faEdit} />
                 </div>
               </div>
 
-              <p>
-                <strong>Họ tên:</strong> {address.name || "Chưa cập nhật"}
-              </p>
-              <p>
-                <strong>Số điện thoại:</strong>{" "}
-                {address.phone || "Chưa cập nhật"}
-              </p>
-              <p>
-                <strong>Địa chỉ:</strong>{" "}
-                {address.addressLine || "Chưa cập nhật"}
-              </p>
+              <div className={cx("info_updated")}>
+                <p>
+                  <strong>Họ tên:</strong> {address.name || "Chưa cập nhật"}
+                </p>
+                <p>
+                  <strong>Số điện thoại:</strong>{" "}
+                  {address.phone || "Chưa cập nhật"}
+                </p>
+                <p>
+                  <strong>Địa chỉ:</strong>{" "}
+                  {address.addressLine || "Chưa cập nhật"}
+                </p>
+              </div>
 
               {/* <p>
                 <strong>id huyện:</strong>{" "}
