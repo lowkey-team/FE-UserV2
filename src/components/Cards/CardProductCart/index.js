@@ -122,18 +122,22 @@ function CardProductCart({
     }, 10);
   };
 
-  const handleIncrease = () => {
+  const handleIncrease = async () => {
     if (currentQuantity < stock) {
       handleQuantityChange(currentQuantity + 1);
+      const updatedCartCount = await GetTotalCartByUserIdAPI(storedUser.id);
+      updateCartCount(updatedCartCount || 0);
     } else {
       messageRef.current.showWarning("Số lượng vượt quá số lượng có sẵn");
     }
   };
 
-  const handleDecrease = () => {
+  const handleDecrease = async () => {
     if (currentQuantity > 1) {
       handleQuantityChange(currentQuantity - 1);
     }
+    const updatedCartCount = await GetTotalCartByUserIdAPI(storedUser.id);
+    updateCartCount(updatedCartCount || 0);
   };
 
   if (!isVisible) {

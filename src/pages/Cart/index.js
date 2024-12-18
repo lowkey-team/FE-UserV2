@@ -458,12 +458,12 @@ function Cart() {
   return (
     <div className={cx("wrapper", "container")}>
       <div className={cx("row")}>
-        <Checkbox
+        {/* <Checkbox
           checked={selectAll}
           onChange={(e) => handleSelectAll(e.target.checked)}
         >
           Chọn tất cả
-        </Checkbox>
+        </Checkbox> */}
         <div className={cx("col-md-8", "product-list")}>
           {loading ? (
             <p>Loading...</p>
