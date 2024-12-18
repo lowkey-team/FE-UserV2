@@ -148,11 +148,13 @@ function ProductDetails() {
               <h3>Mô tả sản phẩm</h3>
               <hr></hr>
             </div>
-            <p>
-              {isExpanded
-                ? fullDescription
-                : fullDescription.substring(0, previewLength) + "..."}
-            </p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: isExpanded
+                  ? fullDescription
+                  : fullDescription.substring(0, previewLength) + "...",
+              }}
+            ></div>
             <div className={cx("des__btn-more")}>
               <button onClick={toggleDescription}>
                 {isExpanded ? "Thu gọn " : "Xem thêm "}
@@ -205,9 +207,11 @@ function ProductDetails() {
                       {Array(5)
                         .fill(0)
                         .map((_, index) => {
-                          const isFilled = index + 1 <= Math.floor(statistics.averageRating); // Sao đầy
+                          const isFilled =
+                            index + 1 <= Math.floor(statistics.averageRating); // Sao đầy
                           const isHalfFilled =
-                            index < statistics.averageRating && index + 1 > statistics.averageRating; // Sao nửa
+                            index < statistics.averageRating &&
+                            index + 1 > statistics.averageRating; // Sao nửa
 
                           return (
                             <span
