@@ -4,6 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 const cx = classNames.bind(styles);
 function CardFeedback({ data }) {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    return new Intl.DateTimeFormat("en-GB", options).format(date);
+  };
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("contentFeedback")}>
@@ -20,12 +32,12 @@ function CardFeedback({ data }) {
           <p>{data.feedback_content}</p>
         </div>
         <div className={cx("time")}>
-          <span>{data.feedback_created_at}</span>
+          <span>{formatDate(data.feedback_created_at)}</span>
         </div>
       </div>
 
       <div className={cx("orderFeedback")}>
-        <img src={data.product_image} alt="Ảnh đánh giá"/>
+        <img src={data.product_image} alt="Ảnh đánh giá" />
       </div>
     </div>
   );
