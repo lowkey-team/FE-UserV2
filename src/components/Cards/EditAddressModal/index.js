@@ -1,5 +1,7 @@
 import { Modal, Input, Button, Form, Select } from "antd";
+import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import { fecthFindByIdUserAPI } from "~/apis";
 import {
   getProvincesAPI,
   getDistrictsByProvinceAPI,
@@ -22,6 +24,26 @@ const EditAddressModal = ({
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedWard, setSelectedWard] = useState(null);
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const storedUser = Cookies.get("user")
+    ? JSON.parse(Cookies.get("user"))
+    : null;
+
+  useEffect(() => {
+    if (storedUser && storedUser.id) {
+      fecthFindByIdUserAPI(storedUser.id)
+        .then((dataUser) => {
+          if (dataUser) {
+            setFullName(dataUser.FullName);
+            setPhone(dataUser.Phone);
+          }
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+  }, [storedUser]);
 
   const onFinish = (values) => {
     const fullAddress = {
@@ -108,7 +130,7 @@ const EditAddressModal = ({
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 20 }}
         >
-          <Input placeholder="Họ tên người nhận hàng" />
+          <Input placeholder="Họ tên người nhận hàng" value={fullName} />
         </Form.Item>
 
         <Form.Item
@@ -118,7 +140,7 @@ const EditAddressModal = ({
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 20 }}
         >
-          <Input placeholder="Số điện thoại" />
+          <Input placeholder="Số điện thoại" value={phone} />
         </Form.Item>
 
         <Form.Item
