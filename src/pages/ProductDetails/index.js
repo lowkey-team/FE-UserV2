@@ -12,9 +12,6 @@ import {
   fetchGetVoucherAPI,
   fetchFeedbackByProductIdAPI,
 } from "~/apis";
-import CardProductSaleHorizontal from "~/components/Cards/CardProductSaleHorizontal";
-import { icon } from "@fortawesome/fontawesome-svg-core";
-import icons from "~/assets/icons";
 import CardFeedback from "~/components/Cards/CardFeedback";
 import Cookies from "js-cookie";
 import RecommendProducts from "~/components/Forms/recommendProducts/recommendProducts";

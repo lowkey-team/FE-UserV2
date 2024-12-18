@@ -200,7 +200,7 @@ function Header() {
         <div>
           <div className={cx("header__top")}>
             <img
-              src="https://theme.hstatic.net/200000551679/1001282356/14/top_banner.jpg?v=516"
+              src="https://theme.hstatic.net/200000551679/1001282356/14/top_banner.jpg?v=672"
               alt="banner"
             />
           </div>

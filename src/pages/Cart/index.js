@@ -439,6 +439,15 @@ function Cart() {
     }
   };
   const handleCheckout = () => {
+    if (!address.name || !address.phone || !address.addressLine) {
+      notification.error({
+        message: "Thông tin giao hàng không đầy đủ",
+        description:
+          "Vui lòng cập nhật đầy đủ thông tin giao hàng trước khi thanh toán.",
+      });
+      // handleEditAddressModalOpen(); // Automatically open the address modal
+      return;
+    }
     switch (selectedPaymentMethod) {
       case "cod":
         handleCheckoutCOD();
